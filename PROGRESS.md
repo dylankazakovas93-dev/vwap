@@ -9,3 +9,11 @@
   VALIDATION_PROTOCOL.md, DECISIONS.md #1-9, KNOWN_LIMITATIONS.md.
 - 2026-07-10: Stage 2 engine implementation begun (features, events,
   analysis) with deterministic test fixtures.
+- 2026-07-10: Stage 2 complete. Engine + 8 fixtures pass; ES/NQ ledgers
+  (~101-103k events each, k1z3) and preregistered analysis run on dev
+  partition. Findings: displacement alone directionally uninformative
+  (cont 0.483/0.488); no feature recovers continuation >=2 ticks; VWAP
+  acceptance sort is anchor leakage (causal post-decision null); volume/
+  inefficiency lean weakly to REVERSAL; cash-open reversal pocket only.
+  Verdict REVISE HYPOTHESIS. 42 analysis configs registered. No TP/SL,
+  no validation/holdout access. STAGE2_FINDINGS.md + STAGE2_GATE.md.

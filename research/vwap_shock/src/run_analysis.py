@@ -97,6 +97,15 @@ def main():
         accs.extend(acceptance_table(ev, inst, k, z))
         reg.log("2", "acceptance", {**cfg, "family": "acceptance"}, "ok", "")
 
+    # write main tables BEFORE placebo so a late failure cannot discard them
+    pd.concat(counts).to_csv(os.path.join(TAB, "event_counts.csv"), index=False)
+    pd.DataFrame(base).to_csv(os.path.join(TAB, "baseline_outcomes.csv"), index=False)
+    pd.DataFrame(segs).to_csv(os.path.join(TAB, "segment_baseline.csv"), index=False)
+    pd.DataFrame(rmaps).to_csv(os.path.join(TAB, "response_maps.csv"), index=False)
+    pd.DataFrame(monos).to_csv(os.path.join(TAB, "monotonicity.csv"), index=False)
+    pd.DataFrame(incs).to_csv(os.path.join(TAB, "increments.csv"), index=False)
+    pd.DataFrame(accs).to_csv(os.path.join(TAB, "acceptance.csv"), index=False)
+
     # matched placebo, primary configs only
     for inst in ("ES", "NQ"):
         feat = pd.read_parquet(os.path.join(OUT, f"{inst.lower()}_features_dev.parquet"))

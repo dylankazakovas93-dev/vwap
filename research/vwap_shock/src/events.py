@@ -151,6 +151,7 @@ def build_event_ledger(feat: pd.DataFrame, k: int, z_thr: float,
             row = {
                 "instrument": instrument, "session_date": sd,
                 "ts_event": sess["ts_event"].iloc[i], "bar_idx": i,
+                "et_minute": int(sess["et_minute"].iloc[i]),
                 "symbol": sess["symbol"].iloc[i], "k": k, "z_thr": z_thr,
                 "direction": d, "segment": sess["segment"].iloc[i],
                 "macro_window": bool(sess["macro_window"].iloc[i]),

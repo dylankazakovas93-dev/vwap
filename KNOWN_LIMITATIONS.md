@@ -28,3 +28,15 @@
    property; all economics here are gross and simulator-conditional.
 10. 2020-03 COVID sessions include a halt day and extreme baselines; they
     remain in development data by design (no post-hoc exclusion).
+11. VWAP acceptance as defined overlaps the forward label window; the raw
+    acceptance-vs-continuation sort (0.57 vs 0.10) is contemporaneous
+    leakage, not prediction. Only the post-decision-bar version
+    (post_cont_rate) is causal, and it is null. Any future acceptance
+    feature must be evaluated strictly post-decision.
+12. Extreme 1-minute events are concentrated overnight/European (thin
+    liquidity); the cash-open reversal pocket rests on ~1.4-1.8k events over
+    five years per instrument — small, regime-sensitive, and untested for
+    the 1-tick spread. Not a deployable result as it stands.
+13. Stage 3 independent audit has not been run; Stage 2 findings are
+    implementation-agent self-reported and must be audited before any
+    promotion.

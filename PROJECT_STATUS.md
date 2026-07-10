@@ -8,7 +8,7 @@ Research generation: 1
 |---|---|---|
 | 0 data & repo audit | COMPLETE | PASS — clean audit, partitions reserved |
 | 1 causal spec & preregistration | COMPLETE | PASS — SPEC_LOCKED.md committed before dev results viewed |
-| 2 phenomenon study (dev partition) | IN PROGRESS | pending |
+| 2 phenomenon study (dev partition) | COMPLETE | REVISE HYPOTHESIS — continuation rejected, weak reversal thread; see STAGE2_GATE.md |
 | 3 independent audit | NOT STARTED | — |
 | 4 development selection | NOT AUTHORIZED | — |
 | 5 statistical verification | NOT AUTHORIZED | — |
