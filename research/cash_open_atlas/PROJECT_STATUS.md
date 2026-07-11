@@ -5,7 +5,7 @@ Research generation: 3 (descriptive atlas; not a hypothesis test)
 
 | Stage | Status | Gate |
 |---|---|---|
-| Preregistration (charter/spec/data contract/decisions/limitations) | IN PROGRESS | pending |
-| Engine build + fixtures | NOT STARTED | — |
-| Session-level ledger (dev partition, ES+NQ) | NOT STARTED | — |
-| Descriptive statistics + report | NOT STARTED | — |
+| Preregistration (charter/spec/data contract/decisions/limitations) | COMPLETE | PASS — committed before any result viewed |
+| Engine build + fixtures | COMPLETE | PASS — 8/8 tests pass, incl. real-data DST check |
+| Session-level ledger (dev partition, ES+NQ) | COMPLETE | ES 1286/1291, NQ 1284/1291 primary-valid |
+| Descriptive statistics + report | COMPLETE | 35 registered configs; see reports/ATLAS_REPORT.md |
