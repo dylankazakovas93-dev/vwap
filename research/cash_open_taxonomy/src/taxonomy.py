@@ -9,8 +9,7 @@ import numpy as np
 import pandas as pd
 
 TAU_MAX = 59            # 09:30-10:29 ET, matches atlas secondary ceiling
-BASELINE_WINDOW = 60
-BASELINE_MIN = 20
+BASELINE_WINDOW = 60    # exactly the previous 60 valid sessions; no expanding-window fallback
 TAU_C = 1.0              # primary commitment threshold
 TAU_D = 0.0               # dominance threshold
 TAU_B = 0.15              # primary ambiguity band
@@ -39,17 +38,19 @@ def timing_bin(h):
 # ---------------------------------------------------------------- scales --
 def build_scale_tables(df: pd.DataFrame):
     """df: base bars for one instrument. Returns per-session scale_U,
-    scale_D (causal, trailing 60 prior sessions, min 20), plus the raw
+    scale_D (causal, EXACTLY the previous 60 valid sessions -- no
+    expanding-window / partial-window fallback; a session with fewer than
+    60 valid predecessors has an undefined scale), plus the raw
     U_0930/D_0930 series."""
     sub = df[df["et_minute"] == 570][["session_date", "open", "high", "low"]].copy()
     sub = sub.drop_duplicates("session_date").sort_values("session_date").reset_index(drop=True)
     sub["U_0930"] = sub["high"] - sub["open"]
     sub["D_0930"] = sub["open"] - sub["low"]
-    sub["scale_U"] = sub["U_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_MIN).median().shift(1)
-    sub["scale_D"] = sub["D_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_MIN).median().shift(1)
-    sub["scale_U_mad"] = sub["U_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_MIN).apply(
+    sub["scale_U"] = sub["U_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_WINDOW).median().shift(1)
+    sub["scale_D"] = sub["D_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_WINDOW).median().shift(1)
+    sub["scale_U_mad"] = sub["U_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_WINDOW).apply(
         lambda x: 1.4826 * np.median(np.abs(x - np.median(x))), raw=True).shift(1)
-    sub["scale_D_mad"] = sub["D_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_MIN).apply(
+    sub["scale_D_mad"] = sub["D_0930"].rolling(BASELINE_WINDOW, min_periods=BASELINE_WINDOW).apply(
         lambda x: 1.4826 * np.median(np.abs(x - np.median(x))), raw=True).shift(1)
     return sub.set_index("session_date")[["scale_U", "scale_D", "scale_U_mad", "scale_D_mad", "U_0930", "D_0930"]]
 

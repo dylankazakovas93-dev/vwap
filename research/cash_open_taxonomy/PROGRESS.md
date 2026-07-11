@@ -23,3 +23,18 @@
   DELAYED_EXPANSION_AFTER_INITIAL_BALANCE (class 6) is empty at the
   chosen tau_c=1.0/N=15 defaults - flagged, not hidden. Year-by-year
   stable across 2018-2022. TAXONOMY_REPORT.md committed.
+- 2026-07-11: CORRECTION applied. `build_scale_tables` was using
+  `rolling(60, min_periods=20)` (expanding-window fallback below 60 prior
+  sessions), contrary to the approved spec's exact-60-session requirement.
+  Fixed to `min_periods=60`; SPEC_TAXONOMY.md and DECISIONS.md #10 updated.
+  Test rewritten to assert zero valid scale for the first 60 sessions and
+  an exact 60-session median thereafter (65-session fixture). Ledgers and
+  diagnostics rebuilt: ES 1269->1229 sessions, NQ 1267->1227 (40 sessions/
+  instrument excluded, all with only 20-59 valid predecessors). Before/
+  after class-frequency diff computed (class_frequency_before_after_diff.csv,
+  480 cells): max absolute fractional shift in any cell is 0.44 percentage
+  points; corrected sample is a strict subset of the original with no
+  session changing class. All qualitative findings (class 6 empty,
+  same-bar morphology validation, ladder monotonicity/ties, year
+  stability) unchanged. TAXONOMY_REPORT.md amended with corrected figures.
+  No level testing performed.

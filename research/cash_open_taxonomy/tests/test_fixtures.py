@@ -19,17 +19,30 @@ def make_dense(closes, opens=None, highs=None, lows=None):
 
 
 # --------------------------------------------------------------- scales --
-def test_causal_scale_prior_sessions_only():
+def test_causal_scale_exact_60_session_window_no_fallback():
+    # 65 sessions: index 0..59 (60 sessions) can never have a valid scale
+    # (fewer than 60 prior sessions exist for any of them); index 60 is the
+    # first session with exactly 60 valid predecessors (index 0..59).
+    n = 65
     rows = []
-    for i in range(25):
+    for i in range(n):
         sd = pd.Timestamp("2021-01-01") + pd.Timedelta(days=i)
         rows.append({"session_date": sd, "et_minute": 570, "open": 100.0,
                     "high": 100.0 + (i + 1) * 0.1, "low": 100.0 - 0.05})
     df = pd.DataFrame(rows)
     scales = tx.build_scale_tables(df)
-    med_expected = np.median([(i + 1) * 0.1 for i in range(24)])
-    assert scales.loc[pd.Timestamp("2021-01-01") + pd.Timedelta(days=24), "scale_U"] == pytest.approx(med_expected)
-    assert np.isnan(scales.loc[pd.Timestamp("2021-01-01") + pd.Timedelta(days=10), "scale_U"])
+    # no session before index 60 may have a valid scale (no partial/expanding window)
+    for i in range(60):
+        sd = pd.Timestamp("2021-01-01") + pd.Timedelta(days=i)
+        assert np.isnan(scales.loc[sd, "scale_U"]), f"session {i} should have no valid scale"
+    # session 60 uses exactly sessions 0..59 (60 sessions), median of (i+1)*0.1 for i in 0..59
+    med_expected = np.median([(i + 1) * 0.1 for i in range(60)])
+    sd60 = pd.Timestamp("2021-01-01") + pd.Timedelta(days=60)
+    assert scales.loc[sd60, "scale_U"] == pytest.approx(med_expected)
+    # session 61 must use sessions 1..60 (shifted window, not 0..60 -- exactly 60, not 61)
+    med_expected_61 = np.median([(i + 1) * 0.1 for i in range(1, 61)])
+    sd61 = pd.Timestamp("2021-01-01") + pd.Timedelta(days=61)
+    assert scales.loc[sd61, "scale_U"] == pytest.approx(med_expected_61)
 
 
 # ----------------------------------------------------------- primitives --
@@ -166,7 +179,7 @@ def test_ladder_monotonic_reach_rate_invariant():
 def test_one_row_per_session_and_es_nq_separate(tmp_path, monkeypatch):
     import src.build_ledger as bl
     rows = []
-    for i in range(25):
+    for i in range(65):  # >60 so at least session index 60+ has a valid 60-session scale
         sd = pd.Timestamp("2021-01-01") + pd.Timedelta(days=i)
         for tau in range(60):
             rows.append({"session_date": sd, "et_minute": 570 + tau, "ts_event": sd,
@@ -180,6 +193,7 @@ def test_one_row_per_session_and_es_nq_separate(tmp_path, monkeypatch):
     monkeypatch.setattr(bl, "DEV_END", pd.Timestamp("2099-01-01"))
     led_es = bl.build_taxonomy_ledger("ES")
     led_nq = bl.build_taxonomy_ledger("NQ")
+    assert len(led_es) == 5  # sessions 60..64 (65 - 60 = 5) have a valid 60-session scale
     if len(led_es):
         assert led_es["session_date"].is_unique
         assert (led_es["instrument"] == "ES").all()

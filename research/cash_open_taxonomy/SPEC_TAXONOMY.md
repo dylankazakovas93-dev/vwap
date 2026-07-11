@@ -11,12 +11,18 @@ For prior valid session `s'` (bar `tau=0` = the 09:30 ET bar):
 U_0930(s') = High(tau=0, s') - Open(tau=0, s')
 D_0930(s') = Open(tau=0, s') - Low(tau=0, s')
 ```
-Causal scale for session `s`, using only sessions `s' < s`, trailing 60
-prior sessions, minimum 20:
+Causal scale for session `s`, using only sessions `s' < s`, **exactly the
+previous 60 valid sessions** — no expanding window, no reduced-minimum
+fallback. A session with fewer than 60 valid predecessors has an
+**undefined** scale (excluded, not approximated from a partial window):
 ```
-scale_U(s) = median( { U_0930(s') : s' in trailing window(s) } )
-scale_D(s) = median( { D_0930(s') : s' in trailing window(s) } )
+scale_U(s) = median( { U_0930(s') : s' in the 60 sessions immediately before s } )
+scale_D(s) = median( { D_0930(s') : s' in the 60 sessions immediately before s } )
 ```
+(Corrected 2026-07-11: an earlier implementation pass used a
+`min_periods=20` rolling fallback, which silently computed a scale from
+as few as 20 prior sessions once past the 20th session, contrary to this
+requirement. Fixed in `src/taxonomy.py`; see `DECISIONS.md`.)
 Kept permanently separate — never pooled, never averaged. A secondary MAD
 companion scale (`1.4826 * median(|X - median(X)|)`) is computed alongside
 both, reported but never substituted.
