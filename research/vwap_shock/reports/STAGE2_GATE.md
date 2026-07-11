@@ -40,6 +40,18 @@ sample, and (c) an independent audit (Stage 3, not yet run).
 No TP/SL sweep, no validation-partition access, no holdout access performed.
 Stage stops here per instructions.
 
+## Addendum — family G (extremity-threshold & retracement study)
+
+Thresholds were made explicit and swept (top 10/5/2/1% of |z_mod1|; VWAP
+deviation 1.5-4.0σ x 2 anchors; acceptance 2of3/3of4/4of5 x veto on/off).
+Result reinforces the verdict: under a **symmetric** ±0.5M first-passage test
+the extend-before-retrace probability is 0.463 (ES) / 0.473 (NQ) and **flat
+across the entire extremity domain** (Spearman ≈ +0.0006). The monotone
+"continuation strengthens with extremity" seen under an asymmetric 1-tick-vs-
+M/2 barrier is a barrier-scaling artifact. Acceptance strength and the inner-
+band veto add no causal information (veto reclassifies <0.1% of events).
+See STAGE2G_EXTREMITY.md. Recommendation unchanged: REVISE HYPOTHESIS.
+
 ## Reproduction
 
 ```

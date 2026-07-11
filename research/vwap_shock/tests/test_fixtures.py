@@ -155,3 +155,29 @@ def test_event_ledger_signed_persistence():
     assert row2["direction"] == -1
     assert row2["P15_d"] == pytest.approx(0.0)
     assert row2["E15_d"] == pytest.approx(-1.0)
+
+
+def test_impulse_retracement_engine():
+    from src.extremity import _impulse_row, TICK
+    # impulse up: origin C[i-1]=100, extreme C[i]=110 => M=10 (40 ticks).
+    # forward: retraces to 105 (50%) then breaks to 112.
+    op = np.array([ 99.0, 100.0, 110.0, 108.0, 105.0, 106.0, 112.0])
+    cl = np.array([100.0, 100.0, 110.0, 108.0, 105.0, 106.0, 112.0])
+    hi = np.array([100.0, 100.0, 110.0, 109.0, 106.0, 107.0, 112.0])
+    lo = np.array([ 99.0, 100.0, 110.0, 107.0, 105.0, 105.5, 111.0])
+    i = 2  # extreme bar
+    r = _impulse_row(op, hi, lo, cl, i, 1)
+    assert r["M_ticks"] == 40.0
+    # deepest adverse low after extreme is 105 -> retr 5/10 = 0.5
+    assert r["max_retr_frac"] == pytest.approx(0.5)
+    assert r["reach_50"] and not r["reach_100"]      # never fully failed
+    assert not r["full_failure"]
+    assert r["break_extreme"]                          # 112 > 110
+    assert r["post50_break"]                           # breaks after the 50% retrace
+    # down impulse mirror
+    cl2 = np.array([100.0, 100.0, 90.0, 92.0, 95.0, 94.0, 88.0])
+    op2 = cl2.copy(); hi2 = cl2 + 1; lo2 = cl2 - 1
+    hi2[4] = 95.0
+    r2 = _impulse_row(op2, hi2, lo2, cl2, 2, -1)
+    assert r2["M_ticks"] == 40.0
+    assert r2["break_extreme"]                          # 88 < 90

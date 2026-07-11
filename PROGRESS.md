@@ -17,3 +17,10 @@
   inefficiency lean weakly to REVERSAL; cash-open reversal pocket only.
   Verdict REVISE HYPOTHESIS. 42 analysis configs registered. No TP/SL,
   no validation/holdout access. STAGE2_FINDINGS.md + STAGE2_GATE.md.
+- 2026-07-11: Family-G extremity/retracement study complete (src/extremity.py,
+  run_extremity.py; +1 fixture). Explicit threshold sweep (top 10/5/2/1%,
+  VWAP 1.5-4σ x2 anchors, acceptance 2of3/3of4/4of5 x veto). Key result:
+  symmetric ±0.5M first-passage extend-rate 0.463/0.473, FLAT across extremity
+  (Spearman ~+0.0006); asymmetric race monotonicity shown to be a barrier
+  artifact. Acceptance strength + inner-band veto add no causal info. Verdict
+  unchanged: REVISE HYPOTHESIS. STAGE2G_EXTREMITY.md.
