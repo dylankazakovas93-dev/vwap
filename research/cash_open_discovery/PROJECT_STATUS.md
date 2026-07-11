@@ -5,10 +5,10 @@ Research generation: 2
 
 | Stage | Status | Gate |
 |---|---|---|
-| Preregistration (charter/hypotheses/spec/variables/data contract) | IN PROGRESS | pending |
-| Engine build + fixtures | NOT STARTED | — |
-| Episode/reclaim ledgers (dev partition) | NOT STARTED | — |
-| Outcome + response-map analysis | NOT STARTED | — |
-| Overnight/prior-session/placebo modules | NOT STARTED | — |
-| Discovery report + verdict | NOT STARTED | — |
+| Preregistration (charter/hypotheses/spec/variables/data contract) | COMPLETE | PASS — committed before any result viewed |
+| Engine build + fixtures | COMPLETE | PASS — 6/6 fixtures pass, causality verified |
+| Episode/reclaim ledgers (dev partition) | COMPLETE | ES 3945 / NQ 3870 primary episodes; placebo ledgers built |
+| Outcome + response-map analysis | COMPLETE | 26 registered configs; see reports/tables/ |
+| Overnight/prior-session/placebo modules | COMPLETE | all correlations negligible; placebo pooled-level only |
+| Discovery report + verdict | COMPLETE | REVISE HYPOTHESIS; see DISCOVERY_REPORT.md |
 | Validation partition / holdout | NOT AUTHORIZED (this generation is discovery-only) | — |
