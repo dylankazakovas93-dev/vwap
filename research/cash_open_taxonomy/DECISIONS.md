@@ -1,0 +1,13 @@
+# DECISIONS.md — generation 6 (cash-open path taxonomy)
+
+| # | Date | Decision | Rationale / consequence |
+|---|---|---|---|
+| 1 | 2026-07-11 | New branch `research/cash-open-path-taxonomy` from `research/cash-open-target-atlas` @ `201896d`; generations 1-5 untouched | Per instruction; preserves prior generations |
+| 2 | 2026-07-11 | Excursion normalization scale uses ONLY the 09:30 bar's own High-Open/Open-Low (`U_0930`/`D_0930`), not any later-horizon or session-end excursion | Explicit correction from Dylan; avoids circularity between the normalization scale and the path being classified |
+| 3 | 2026-07-11 | Same-bar dual-sided candles: `SAME_BAR_BULLISH_REVERSAL_PROXY`/`SAME_BAR_BEARISH_REVERSAL_PROXY`/`SAME_BAR_DUAL_SIDED_AMBIGUOUS`, ambiguity band `τ_b=0.15` (grid `{0.10,0.15,0.25}`), permanent intrabar-order caveat attached as a literal column | Revision 2, accepted as final |
+| 4 | 2026-07-11 | REJECTED: extending the same-bar proxy's closing side into an assumed initial direction for h>1 classification | Internally inconsistent — the proxy's closing side is a resulting direction, not a fresh initial one; corrected in Revision 3 |
+| 5 | 2026-07-11 | Same-bar dual-sided sessions are a permanently separate cohort at every horizon; classified via 4 dedicated subsequent-path labels (`CONTINUATION_EXPANSION_PROXY_DIRECTION`, `BALANCE_FAILURE_TO_EXPAND`, `LATER_OPPOSITE_SIDE_TAKEOVER`, `LATER_ORDERED_REVERSAL_AFTER_PROXY`), never merged into the ordinary 6-class taxonomy | Final, per Revision 3 |
+| 6 | 2026-07-11 | `LATER_OPPOSITE_SIDE_TAKEOVER` vs `LATER_ORDERED_REVERSAL_AFTER_PROXY` distinguished by whether >=1 clean, separately-orderable bar re-affirms the proxy direction before the opposite side takes over (`hold_bars` clean) vs. an immediate/unclean flip | Operationalizes "ordered" as genuinely bar-observable, not merely a magnitude fact |
+| 7 | 2026-07-11 | Full excursion ladder ({0.5,1.0,1.5,2.0}, both sides, first-bar/order/ties) restored as an always-on output, independent of the (τ_c,τ_b) sensitivity grid | Explicit instruction: "do not discard the other ladder values or treat the sensitivity grid as a replacement for them" |
+| 8 | 2026-07-11 | Ladder computed over the full available window `tau=0..59` per session (not horizon-restricted), matching generation 3's atlas secondary-horizon ceiling (10:30 ET) | Consistent scope boundary with all prior generations; no bar beyond 10:30 ET used anywhere |
+| 9 | 2026-07-11 | Implementation authorized without further design round-trip, per instruction | Descriptive only: 2018-2022, ES/NQ separate, no level-reaction/profitability/entries/exits/2023+ access |
