@@ -1,0 +1,13 @@
+instrument,horizon,n_sessions_with_ambiguous_bar
+ES,3,5
+ES,5,6
+ES,10,6
+ES,15,6
+ES,30,6
+ES,60,6
+NQ,3,6
+NQ,5,6
+NQ,10,6
+NQ,15,6
+NQ,30,6
+NQ,60,6

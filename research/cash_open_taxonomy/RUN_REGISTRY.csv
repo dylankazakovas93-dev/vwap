@@ -1,1 +1,13 @@
 run_id,timestamp_utc,git_sha,dataset_hash,stage,hypothesis_id,config_hash,parent_run_id,change_reason,train_period,validation_period,test_period,seed,command,status,primary_metric,selected,notes
+g6_001,2026-07-11T13:14:38.065145+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,class_frequency,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_002,2026-07-11T13:14:38.407002+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,samebar_h1_frequency,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_003,2026-07-11T13:14:38.442248+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,subsequent_path_frequency,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_004,2026-07-11T13:14:38.451272+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,sensitivity_grid,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_005,2026-07-11T13:14:38.455188+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,ladder_diagnostics,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_006,2026-07-11T13:14:38.468172+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,morphology_stats,e984fcc2a4f6,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g6_007,2026-07-11T13:14:38.543789+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,class_frequency,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g6_008,2026-07-11T13:14:38.547141+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,samebar_h1_frequency,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g6_009,2026-07-11T13:14:38.581620+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,subsequent_path_frequency,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g6_010,2026-07-11T13:14:38.588804+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,sensitivity_grid,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g6_011,2026-07-11T13:14:38.591860+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,ladder_diagnostics,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g6_012,2026-07-11T13:14:38.603381+00:00,1bccda8b7ddacc9930ce9491b52e18a988bc303d,see DATA_CONTRACT.md,taxonomy_diagnostics,morphology_stats,33e8cdadc9e4,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
