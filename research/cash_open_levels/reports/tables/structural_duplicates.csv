@@ -1,0 +1,5 @@
+instrument,level_id,alias,n_checked,max_abs_diff,is_structural_duplicate
+ES,mult_U_1.0,quantile_p50_U,1229,0.0,True
+ES,mult_D_1.0,quantile_p50_D,1229,0.0,True
+NQ,mult_U_1.0,quantile_p50_U,1227,0.0,True
+NQ,mult_D_1.0,quantile_p50_D,1227,0.0,True
