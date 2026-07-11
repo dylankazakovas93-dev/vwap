@@ -1,0 +1,7 @@
+instrument,reason,n
+ES,predecessor_early_close,45
+ES,no_predecessor_session,1
+ES,primary_valid_rows,1240
+NQ,predecessor_early_close,47
+NQ,no_predecessor_session,1
+NQ,primary_valid_rows,1236

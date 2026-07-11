@@ -1,0 +1,3 @@
+instrument,n_features,avg_abs_pairwise_spearman,effective_n_features
+ES,30,0.40009313860223,2.380442093616716
+NQ,30,0.3851550946376581,2.4651797986961292
