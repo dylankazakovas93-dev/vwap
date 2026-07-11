@@ -1,0 +1,12 @@
+# DECISIONS.md — generation 5 (overnight/pre-open predictor discovery)
+
+| # | Date | Decision | Rationale / consequence |
+|---|---|---|---|
+| 1 | 2026-07-11 | New branch `research/overnight-preopen-predictor-discovery` from `research/cash-open-target-atlas` @ `201896d`; new directory `research/overnight_preopen_predictor/`; generations 1-4 untouched | Per instruction; preserves prior generations |
+| 2 | 2026-07-11 | Generation 3's `atlas.py` imported by file path (`importlib`), not copied, for target R_h/Q_h computation | Consistent with generation 4; "use the existing cash-open atlas targets unchanged" |
+| 3 | 2026-07-11 | Overnight window = bars strictly before the session's 09:30 bar, taken by chronological `ts_event` position, not an `et_minute` range filter | `et_minute` wraps at midnight within a session; an `et_minute` filter would silently mis-order or skip the wrap |
+| 4 | 2026-07-11 | Two reference returns (Globex-open-anchored `overnight_return` and prior-RTH-close-anchored `prior_rth_close_to_0929_return`) kept as separately named variables throughout; combined only once, as a predefined difference in Sec. 6's `overnight_minus_priorrth_norm` | Matches instruction "do not silently treat these as the same anchor" |
+| 5 | 2026-07-11 | VWAP dispersion equation (`sigma_on`) stated in SPEC_OVERNIGHT.md Sec. 4 before any code was written; requires >=30 overnight bars for validity | Matches instruction "define the VWAP dispersion equation explicitly in the preregistration before implementation" |
+| 6 | 2026-07-11 | Prior-RTH/overnight relationship variables (Sec. 6) require a non-early-close predecessor session (same mapping as generation 4); undefined and excluded from Sec. 6 analysis only if absent, while Sec. 3-5 (overnight/pre-open) features are independent of the predecessor and always computed when the session itself has enough data | Overnight/pre-open features only need the CURRENT session's own data through 09:29, not the previous session at all |
+| 7 | 2026-07-11 | 45 standalone features, 720 elementary tests (2 instr x 45 features x 4 horizons x 2 targets), Bonferroni alpha=0.05/720 declared before results, plus effective-N sensitivity | Per instruction: register every test, report the complete count, declare the adjustment before viewing results |
+| 8 | 2026-07-11 | No combination with generation 4's previous-close features, no ES/NQ cross-market predictors, no ML/entries/TP-SL/MAE-MFE/sizing/prop-sim/validation-holdout anywhere in this generation | Per explicit research restrictions |
