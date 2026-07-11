@@ -1,6 +1,7 @@
 data/raw/
 data/processed/
 research/vwap_shock/outputs/*.parquet
+research/vwap_shock/outputs/*.log
 __pycache__/
 *.pyc
 .pytest_cache/
