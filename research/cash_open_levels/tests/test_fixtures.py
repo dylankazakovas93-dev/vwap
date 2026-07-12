@@ -337,3 +337,37 @@ def test_family4_dev_vwap_fields_excluded_from_level_inventory():
     assert "overnight_low_dev_vwap" not in lv.LEVEL_COLUMNS
     assert "overnight_mid" in lv.LEVEL_COLUMNS
     assert "overnight_open" in lv.LEVEL_COLUMNS
+
+
+# --------------------------------------------------- exact inventory count --
+def test_level_columns_exact_inventory_count_by_family():
+    # Locks the exact per-family and total level_id count so a future
+    # ladder change (or a documentation transcription error, as previously
+    # found) is caught immediately by the test suite rather than only by
+    # manual audit. family1: 4 mult x2 sides + 3 mad x2 sides + 4 quantile
+    # x2 sides = 22. family2: 7 sigma steps (j=-3..+3). family3: prior
+    # high/low/close/mid/vwap = 5. family4: high/low/mid/open = 4.
+    from collections import Counter
+    counts = Counter(family for family, side, _ in lv.LEVEL_COLUMNS.values())
+    assert counts["family1"] == 2 * (len(lv.MULT_LADDER) + len(lv.MAD_LADDER) + len(lv.QUANTILE_LADDER)) == 22
+    assert counts["family2"] == len(lv.VWAP_J) == 7
+    assert counts["family3"] == 5
+    assert counts["family4"] == 4
+    assert len(lv.LEVEL_COLUMNS) == 38
+    assert "q_U_p50" not in lv.LEVEL_COLUMNS and "q_D_p50" not in lv.LEVEL_COLUMNS
+    assert "prior_settlement_open" not in lv.LEVEL_COLUMNS
+
+
+def test_level_counts_table_matches_level_columns_inventory():
+    df = make_session_df(n_sessions=65)
+    scales = tx.build_scale_tables(df)
+    fam1 = lv.build_family1(df, scales)
+    fam2 = lv.build_family2(df)
+    fam3 = lv.build_family3(df)
+    fam4 = lv.build_family4(df, fam2)
+    long_df = lv.build_long_levels("ES", fam1, fam2, fam3, fam4)
+    counts = dg.level_counts(long_df)
+    assert len(counts) == len(lv.LEVEL_COLUMNS)
+    assert set(counts["level_id"]) == set(lv.LEVEL_COLUMNS.keys())
+    fam_sizes = counts.groupby("family").size().to_dict()
+    assert fam_sizes == {"family1": 22, "family2": 7, "family3": 5, "family4": 4}

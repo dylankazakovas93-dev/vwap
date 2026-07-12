@@ -30,6 +30,23 @@ and this report:
 
 All figures below are from the corrected (Revision 3) implementation.
 
+## Amendment (2026-07-12): documentation arithmetic correction (Revision 4)
+
+Dylan caught a count contradiction between this report's own family-1
+formula description (8 multiplier + 6 MAD + 8 quantile level_ids = 22)
+and the table below, which previously stated family 1 had 14 level_ids
+and a total library of 30. **This was a documentation transcription
+error only** — the implementation, `LEVEL_COLUMNS`, and every generated
+table (`level_counts.csv`, `clustering_summary.csv`, etc.) were already
+correct at 22/family 1 and 38/instrument total, independently confirmed
+via the pairwise-clustering row count (`C(22,2)=231 × 1229` ES sessions
+`= 283,899`, exactly matching `clustering_summary.csv`'s `family1×family1`
+row). The table and totals below are now corrected to match the
+already-correct implementation; two new regression tests
+(`test_level_columns_exact_inventory_count_by_family`,
+`test_level_counts_table_matches_level_columns_inventory`) lock the exact
+count going forward.
+
 ## Sample
 
 | instrument | sessions in library (union of any family) |
@@ -37,24 +54,25 @@ All figures below are from the corrected (Revision 3) implementation.
 | ES | 1291 |
 | NQ | 1289 |
 
-## Level counts (families 1-4; family 5 removed, family 6 listed-only) — corrected, 30 level_ids
+## Level counts (families 1-4; family 5 removed, family 6 listed-only) — corrected, 38 level_ids
 
 | instrument | family | levels | valid sessions (each level_id) |
 |---|---|---|---|
-| ES | family1 (mult ×4/side + mad ×3/side + quantile ×4/side = 14 level_ids) | 14 | 1229 |
+| ES | family1 (mult ×4/side + mad ×3/side + quantile ×4/side = 22 level_ids) | 22 | 1229 |
 | ES | family2 (vwap_on j∈{-3..3} = 7 level_ids) | 7 | 1291 |
 | ES | family3 (prior_high/low/close/rth_mid/rth_vwap = 5 level_ids) | 5 | 1245 |
 | ES | family4 (overnight_high/low/mid/open = 4 level_ids) | 4 | 1291 |
-| NQ | family1 | 14 | 1227 |
+| NQ | family1 | 22 | 1227 |
 | NQ | family2 | 7 | 1289 |
 | NQ | family3 | 5 | 1243 |
 | NQ | family4 | 4 | 1289 |
 
-Total: 30 level_ids/instrument (14+7+5+4), up from 24 before the
-correction. Every level_id within a family has an identical valid-session
-count (the family's own validity gate applies uniformly to all of its
-levels), confirmed in `reports/tables/level_counts.csv` (60 rows: 2
-instruments × (14+7+5+4) level_ids).
+Total: **38** level_ids/instrument (22+7+5+4), up from 24 before the
+Revision 3 correction (this table previously, and wrongly, said 30 — see
+the Revision 4 amendment above). Every level_id within a family has an
+identical valid-session count (the family's own validity gate applies
+uniformly to all of its levels), confirmed in `reports/tables/
+level_counts.csv` (76 rows: 2 instruments × (22+7+5+4) level_ids).
 
 ## Missingness
 
@@ -118,7 +136,7 @@ when `sigma_on` is near zero). Per-session overlap ("crowdedness": count
 of clustered pairs in that session) averages 8.9 (ES) / 10.1 (NQ) pairs
 per session, ranging 0-62 (`reports/tables/overlap_per_session.csv`) — up
 from the pre-correction 3.8/4.1, entirely a mechanical consequence of
-having 30 level_ids/session instead of 24 (more pairs to test), not a
+having 38 level_ids/session instead of 24 (more pairs to test), not a
 change in how tightly any given pair of levels sits together.
 
 ## Coverage
@@ -178,11 +196,12 @@ values they are matched to.
 
 ## Artifacts
 
-`RESEARCH_CHARTER.md`, `DATA_CONTRACT.md`, `SPEC_LEVELS.md` (Revision 3,
+`RESEARCH_CHARTER.md`, `DATA_CONTRACT.md`, `SPEC_LEVELS.md` (Revision 4,
 corrected), `DECISIONS.md`, `KNOWN_LIMITATIONS.md`, `PROJECT_STATUS.md`,
 `PROGRESS.md`, `RUN_REGISTRY.csv`; `src/{levels, diagnostics,
-build_levels}.py`; `tests/test_fixtures.py` (19 tests, 7 added for the
-correction); ledgers
+build_levels}.py`; `tests/test_fixtures.py` (21 tests: 7 added for the
+Revision 3 level correction, 2 added for the Revision 4 inventory-count
+lock); ledgers
 `outputs/{es,nq}_{fam1,fam2,fam3,fam4,levels_long,synthetic_controls}.
 parquet` (git-ignored, reproducible); tables in `reports/tables/`:
 `level_counts.csv`, `missingness.csv`, `structural_duplicates.csv`,

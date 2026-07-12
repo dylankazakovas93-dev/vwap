@@ -59,3 +59,18 @@
   clustered pairs/session 8.9 ES / 10.1 NQ, up from 3.8/4.1 -- a
   consequence of more pairs to test, not tighter clustering per pair).
   LEVELS_REPORT.md amended in place with corrected figures.
+- 2026-07-12: CORRECTION (documentation only, no code/data change).
+  Dylan caught a count contradiction: SPEC_LEVELS.md Revision 3 and
+  LEVELS_REPORT.md stated family 1 had 14 level_ids and the library
+  totaled 30 level_ids/instrument, but family 1's own formula list (8
+  mult + 6 mad + 8 quantile) sums to 22. Verified against ground truth:
+  `LEVEL_COLUMNS` (code), `level_counts.csv` (76 rows = 2 instruments x 38
+  level_ids), and the pairwise-clustering row count (`C(22,2)=231 x 1229`
+  ES sessions `= 283,899`, exactly matching `clustering_summary.csv`'s
+  family1xfamily1 row) all independently confirm 22/family1 and 38/
+  instrument total -- the implementation was correct throughout; only the
+  prose in SPEC_LEVELS.md (Revision 3->4) and LEVELS_REPORT.md was wrong
+  and has been corrected. 2 new regression tests added (21 total, all
+  passing): `test_level_columns_exact_inventory_count_by_family` and
+  `test_level_counts_table_matches_level_columns_inventory`, locking the
+  exact per-family and total level_id count against future drift.

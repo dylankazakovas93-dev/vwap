@@ -1,10 +1,31 @@
 # SPEC_LEVELS.md — Cash-Open Level Library (Generation 7, Part 2A)
 
-Revision 3 (final, incorporating an implementation-fidelity correction to
-Revision 2). Branch `research/cash-open-level-library`, base
+Revision 4 (final, correcting a documentation arithmetic error in
+Revision 3). Branch `research/cash-open-level-library`, base
 `research/cash-open-path-taxonomy` @ `796ad3f`. **Level construction only.
 No touches, reactions, subsequent returns, taxonomy-conditional outcomes,
 profitability, entries, or exits anywhere in this generation.**
+
+## Correction applied in Revision 4 — documentation arithmetic error
+
+Dylan caught a count contradiction: Revision 3's own family-1 formula
+list (8 multiplier + 6 MAD + 8 quantile level_ids) sums to 22, but the
+Revision 3 text and `LEVELS_REPORT.md` both stated family 1 had 14
+level_ids and a total library of 30 — an arithmetic transcription error
+(the pre-Revision-3 family-1 count of 14 was never updated after the 8
+quantile levels were added). **The implementation, `LEVEL_COLUMNS`, and
+every generated diagnostic table (`level_counts.csv`, `clustering_summary.
+csv`, etc.) were already correct** — confirmed independently via the
+pairwise-clustering row counts (`C(22,2)=231` combinations × 1229 valid
+ES sessions = 283,899, exactly matching the `family1×family1` row in
+`clustering_summary.csv`). Only the prose in `SPEC_LEVELS.md` and
+`LEVELS_REPORT.md` was wrong. Corrected total: **family 1 = 22, family 2 =
+7, family 3 = 5, family 4 = 4 → 38 level_ids/instrument** (not 30). Two
+regression tests now lock the exact per-family and total count
+(`test_level_columns_exact_inventory_count_by_family`,
+`test_level_counts_table_matches_level_columns_inventory`) so a future
+ladder change or transcription slip is caught by the suite, not only by
+manual audit.
 
 ## Corrections applied in Revision 2 (superseded text retained below for audit)
 
@@ -185,8 +206,8 @@ bars accrue — flagged as a design note only.
 | 4 | overnight_high / overnight_low | up/down | >=1 overnight bar |
 | 4 | overnight_mid / overnight_open | neutral | >=1 overnight bar |
 
-Total: 14 (family 1) + 7 (family 2) + 5 (family 3) + 4 (family 4) = 30
-level_ids. `mult_U_1.0` and `mad`-family levels are NOT the same value
+Total: 22 (family 1: 8 mult + 6 mad + 8 quantile) + 7 (family 2) + 5
+(family 3) + 4 (family 4) = **38 level_ids**. `mult_U_1.0` and `mad`-family levels are NOT the same value
 (median vs. MAD-scaled); the only structural duplicate in this library is
 `mult_U_1.0`/`mult_D_1.0` being definitionally the trailing p50 quantile
 level (Sec. 5) — there is no separately-computed `q_U_p50`/`q_D_p50`
