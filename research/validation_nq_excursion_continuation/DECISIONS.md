@@ -1,0 +1,16 @@
+# DECISIONS.md — NQ upper-excursion continuation validation
+
+Implementation-level judgment calls required to execute Dylan's frozen
+validation methodology exactly; none alter its substance, thresholds, or
+scope.
+
+| # | Decision | Rationale |
+|---|---|---|
+| 1 | New branch `validation/nq-upper-excursion-continuation` from `research/nq-excursion-level-timing` @ `dba98fe` | Per instruction |
+| 2 | Before any code was written, a date-range-only check (`session_date.min()/max()/nunique()`) was run on the raw processed parquet to confirm the validation end date, with no level, touch, or outcome value computed or inspected | Needed to state the exact validation date range in the preregistration docs; this is a logistics check, not a validation-outcome calculation, consistent with prior generations' feasibility-check pattern |
+| 3 | Level construction (`MEAN_U_10`/`SD_U_10` etc.) is computed over the FULL available history (2018 onward) so that the first 2023 sessions have a valid, fully-warmed-up causal input, but the resulting level/touch/outcome ROWS are filtered to `session_date ≥ 2023-01-01` before any table is written or statistic computed | Matches the frozen instruction exactly: "no 2018–2022 observation may enter validation statistics except as historical warm-up data required to construct the first causal levels" |
+| 4 | Generation 10's `levels.py`/`interactions.py`/`rolling_state.py` are imported and reused directly (not re-derived) for the frozen formulas; this generation's own code only adds partition filtering and restricts execution to the eight named frozen cells | Avoids any risk of silent formula drift between the development-sample engine and the validation engine — the whole point of a frozen validation is using the identical formula |
+| 5 | Holm correction for the two supporting candidates is computed via the standard step-down Holm procedure on their two raw p-values (sort ascending, first compares to α/2, second to α/1) | Standard, well-defined procedure matching "Holm adjustment" without ambiguity |
+| 6 | "Partial 2026" is labelled by comparing each 2026 touch's `session_date` against the confirmed max available session date; no assumption is made about whether the calendar year will later be completed | Matches instruction to label 2026 partial, using only the already-confirmed data range |
+| 7 | The one-sided exact binomial test uses `scipy.stats.binomtest(n_continuation, n_nontied, 0.5, alternative="greater")` | Directly implements "one-sided exact binomial test because the frozen directional hypothesis is specifically continuation_first_rate > reversal_first_rate" |
+| 8 | Same-bar and post-touch/barrier results remain fully independent computations/tables, matching prior generations' discipline of never forcing them into one narrative | Consistent with generation 9/10's established practice; not contradicted by this spec |
