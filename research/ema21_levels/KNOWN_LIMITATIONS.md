@@ -37,7 +37,15 @@
    across every number ever computed in this generation. Exploratory
    families are labeled as such and are not used to justify
    `EMA21_SPECIFIC` claims.
-10. Contract-roll weeks are not specially excluded from 5-minute bar
+10. Per-time-stratum `touch_rate` in `reports/tables/full_exploratory_results.csv` can
+    exceed 1.0 for individual strata (observed up to ~1.13) because eligible
+    armed excursions are attributed to a stratum by their *start* bar while
+    touches are attributed by the *touch* bar (`DECISIONS.md` #10); an
+    excursion that starts in one stratum and touches in the next is counted
+    once in each. `ALL_RTH` touch rates are unaffected (observed max 0.98)
+    and this does not affect the primary classification, which uses touch
+    and barrier-outcome counts directly rather than touch_rate.
+11. Contract-roll weeks are not specially excluded from 5-minute bar
     construction (consistent with the root front-month series, which is
     not back-adjusted); a roll-induced price step could occasionally
     contaminate an ATR or excursion calculation spanning a roll bar. Not

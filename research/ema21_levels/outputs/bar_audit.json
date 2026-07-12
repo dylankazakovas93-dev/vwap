@@ -1,0 +1,18 @@
+[
+  {
+    "instrument": "ES",
+    "n_1m_rows_dev": 1754270,
+    "n_rth_5m_bars": 98949,
+    "n_rth_5m_incomplete_dropped": 13,
+    "n_full_5m_bars": 349629,
+    "n_full_5m_incomplete_dropped": 1756
+  },
+  {
+    "instrument": "NQ",
+    "n_1m_rows_dev": 1751547,
+    "n_rth_5m_bars": 98794,
+    "n_rth_5m_incomplete_dropped": 11,
+    "n_full_5m_bars": 349537,
+    "n_full_5m_incomplete_dropped": 1204
+  }
+]
