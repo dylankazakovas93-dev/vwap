@@ -1,1 +1,11 @@
 run_id,timestamp_utc,git_sha,dataset_hash,stage,hypothesis_id,config_hash,parent_run_id,change_reason,train_period,validation_period,test_period,seed,command,status,primary_metric,selected,notes
+g10_001,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,timing_surface_b1sd,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g10_002,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,same_bar_surface,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g10_003,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g10_004,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,rolling_state,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g10_005,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,alias_audit,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g10_006,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,timing_surface_b1sd,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g10_007,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,same_bar_surface,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g10_008,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g10_009,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,rolling_state,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g10_010,2026-07-12T19:38:37.637781+00:00,5a357de,see DATA_CONTRACT.md,excursion_timing_analysis,alias_audit,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,

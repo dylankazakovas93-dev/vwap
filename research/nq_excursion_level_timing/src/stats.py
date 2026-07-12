@@ -154,6 +154,7 @@ def year_stability(barriers_tbl: pd.DataFrame, events_tbl: pd.DataFrame,
         n_srev = int((ev_y["same_bar_morphology"] == "SAME_BAR_REVERSAL_PROXY").sum())
         n_sblast = int((ev_y["same_bar_morphology"] == "SAME_BAR_BLAST_THROUGH_PROXY").sum())
         rows.append({"instrument": instrument, "level_id": level_id, "year": year,
+                    "activation_window": activation_window, "horizon": horizon,
                     "touches": len(ev_y), "continuation_first_rate": n_cont / n_total if n_total else np.nan,
                     "reversal_first_rate": n_rev / n_total if n_total else np.nan,
                     "cont_minus_rev_diff": (n_cont - n_rev) / n_total if n_total else np.nan,

@@ -1,0 +1,13 @@
+instrument,level_id,same_bar_classification,direction,anchor_activation_window,n_qualifying_cells
+ES,LOWER_k1,SAME_BAR_MIXED,,,0
+ES,LOWER_k2,SAME_BAR_MIXED,,,0
+ES,LOWER_k3,SAME_BAR_MIXED,,,0
+ES,UPPER_k0,SAME_BAR_MIXED,,,0
+ES,UPPER_k1,SAME_BAR_MIXED,,,0
+ES,UPPER_k2,SAME_BAR_MIXED,,,0
+ES,UPPER_k3,SAME_BAR_MIXED,,,0
+NQ,LOWER_k1,SAME_BAR_MIXED,reversal,1.0,1
+NQ,LOWER_k3,SAME_BAR_MIXED,,,0
+NQ,UPPER_k1,SAME_BAR_MIXED,blast_through,3.0,1
+NQ,UPPER_k2,SAME_BAR_MIXED,,,0
+NQ,UPPER_k3,SAME_BAR_MIXED,,,0
