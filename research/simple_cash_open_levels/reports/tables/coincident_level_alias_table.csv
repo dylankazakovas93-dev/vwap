@@ -1,0 +1,3 @@
+instrument,n_sessions,avg_aliases_per_physical_level,pct_touch_events_in_multialias_cluster
+ES,1289,3.1349049864266325,56.83941816780656
+NQ,1287,1.4184667184667186,27.8481720269817

@@ -1,1 +1,13 @@
 run_id,timestamp_utc,git_sha,dataset_hash,stage,hypothesis_id,config_hash,parent_run_id,change_reason,train_period,validation_period,test_period,seed,command,status,primary_metric,selected,notes
+g9_001,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,overnight_vwap_levels,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_002,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,prior_rth_vwap_levels,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_003,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,excursion_levels_barrier_1sd,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_004,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,same_bar_morphology,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_005,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_006,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,coincident_level_audit,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g9_007,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,overnight_vwap_levels,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g9_008,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,prior_rth_vwap_levels,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g9_009,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,excursion_levels_barrier_1sd,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g9_010,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,same_bar_morphology,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g9_011,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g9_012,2026-07-12T18:54:13.581645+00:00,5b43853,see DATA_CONTRACT.md,simple_level_study_analysis,coincident_level_audit,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,

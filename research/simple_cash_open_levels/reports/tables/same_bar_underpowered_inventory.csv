@@ -1,0 +1,1 @@
+instrument,level_id,n_reversal_proxy,n_blast_through_proxy,n_neutral,n_total_touch_bars,n_nonneutral,reversal_rate,blast_through_rate,neutral_rate,reversal_minus_blast_diff,p_raw,q_value,same_bar_classification
