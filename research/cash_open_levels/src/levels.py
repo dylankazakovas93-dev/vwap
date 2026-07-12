@@ -12,7 +12,18 @@ MIN_OVERNIGHT_BARS = 30
 
 MULT_LADDER = (0.5, 1.0, 1.5, 2.0)
 MAD_LADDER = (1.0, 1.5, 2.0)
-VWAP_J = (-2, -1, 0, 1, 2)
+VWAP_J = (-3, -2, -1, 0, 1, 2, 3)
+
+# Family-1 raw trailing-60-session causal quantile ladder. p50 is
+# DELIBERATELY excluded -- it is a structural duplicate of mult_U_1.0/
+# mult_D_1.0 (both are the trailing median) and is retained only as an
+# alias, never as its own level_id (DECISIONS.md #12).
+QUANTILE_LADDER = (0.25, 0.75, 0.90, 0.95)
+QUANTILE_WINDOW = 60  # matches generation 6's exact-window convention, no fallback
+
+
+def _quantile_label(q: float) -> str:
+    return f"p{int(round(q * 100))}"
 
 DIST_BUCKETS = [(0.0, 0.5), (0.5, 1.0), (1.0, 1.5), (1.5, 2.0), (2.0, np.inf)]
 CLUSTER_THRESHOLD_FRAC = 0.1
@@ -49,6 +60,17 @@ def build_family1(df: pd.DataFrame, scales: pd.DataFrame) -> pd.DataFrame:
     for k in MAD_LADDER:
         out[f"mad_U_{k}"] = O + k * scales["scale_U_mad"]
         out[f"mad_D_{k}"] = O - k * scales["scale_D_mad"]
+
+    # raw trailing-60-session causal quantile levels (p50 excluded -- alias
+    # of mult_U_1.0/mult_D_1.0 only, never its own level_id)
+    raw_U = scales["U_0930"]
+    raw_D = scales["D_0930"]
+    for q in QUANTILE_LADDER:
+        label = _quantile_label(q)
+        qU = raw_U.rolling(QUANTILE_WINDOW, min_periods=QUANTILE_WINDOW).quantile(q).shift(1)
+        qD = raw_D.rolling(QUANTILE_WINDOW, min_periods=QUANTILE_WINDOW).quantile(q).shift(1)
+        out[f"q_U_{label}"] = O + qU
+        out[f"q_D_{label}"] = O - qD
     return out
 
 
@@ -84,47 +106,64 @@ def build_family2(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_family3(df: pd.DataFrame) -> pd.DataFrame:
-    """Prior-session structural levels. A session's own RTH high/low/close
-    plus an is_early_close flag; the PRIOR (chronologically immediately
-    preceding) session's values are used for the current session's family-3
-    levels, only if the prior session is not an early close."""
-    rth = df[(df["et_minute"] >= OPEN_MINUTE) & (df["et_minute"] <= RTH_END_MINUTE)]
+    """Prior-session structural levels. A session's own RTH high/low/close/
+    midpoint/VWAP plus an is_early_close flag; the PRIOR (chronologically
+    immediately preceding) session's values are used for the current
+    session's family-3 levels, only if the prior session is not an early
+    close. `prior_settlement_open` is intentionally NOT included -- it was
+    never part of the approved candidate set (DECISIONS.md #13)."""
+    rth = df[(df["et_minute"] >= OPEN_MINUTE) & (df["et_minute"] <= RTH_END_MINUTE)].copy()
+    rth["p"] = (rth["high"] + rth["low"] + rth["close"]) / 3.0
     g = rth.groupby("session_date", sort=True)
     rth_high = g["high"].max()
     rth_low = g["low"].min()
     max_minute = g["et_minute"].max()
     last_idx = rth.loc[rth.groupby("session_date")["et_minute"].idxmax()]
     rth_close = last_idx.set_index("session_date")["close"]
+    sum_v = g["volume"].sum()
+    sum_vp = (rth["volume"] * rth["p"]).groupby(rth["session_date"]).sum()
+    rth_vwap = sum_vp / sum_v
 
     sessions = pd.DataFrame({
         "rth_high": rth_high, "rth_low": rth_low, "rth_close": rth_close,
-        "max_minute": max_minute,
+        "rth_vwap": rth_vwap, "max_minute": max_minute,
     }).sort_index()
+    sessions["rth_mid"] = (sessions["rth_high"] + sessions["rth_low"]) / 2.0
     sessions["is_early_close"] = sessions["max_minute"] < RTH_END_MINUTE
 
     prior_high = sessions["rth_high"].shift(1)
     prior_low = sessions["rth_low"].shift(1)
     prior_close = sessions["rth_close"].shift(1)
+    prior_mid = sessions["rth_mid"].shift(1)
+    prior_vwap = sessions["rth_vwap"].shift(1)
     prior_is_early = sessions["is_early_close"].shift(1).fillna(True).astype(bool)
 
     out = pd.DataFrame(index=sessions.index)
     out["prior_high"] = prior_high.where(~prior_is_early)
     out["prior_low"] = prior_low.where(~prior_is_early)
     out["prior_close"] = prior_close.where(~prior_is_early)
+    out["prior_rth_mid"] = prior_mid.where(~prior_is_early)
+    out["prior_rth_vwap"] = prior_vwap.where(~prior_is_early)
     out["prior_is_early_close"] = prior_is_early
     return out
 
 
 def build_family4(df: pd.DataFrame, fam2: pd.DataFrame) -> pd.DataFrame:
     """Overnight structural levels, cross-referenced against family 2's
-    VWAP_on. overnight_high/low only require >=1 overnight bar;
-    VWAP-deviation fields require family 2 to be valid."""
-    sub = _overnight_frame(df)
+    VWAP_on (never recomputed independently here). overnight_high/low/
+    mid/open only require >=1 overnight bar; the VWAP-deviation fields
+    require family 2 to be valid. overnight_high_dev_vwap/
+    overnight_low_dev_vwap are DIAGNOSTIC DISTANCES ONLY, not candidate
+    price levels -- deliberately excluded from LEVEL_COLUMNS below."""
+    sub = _overnight_frame(df)  # already sorted by ts_event ascending
     g = sub.groupby("session_date", sort=True)
     overnight_high = g["high"].max()
     overnight_low = g["low"].min()
+    overnight_open = g["open"].first()  # first bar chronologically (ts_event order)
 
-    out = pd.DataFrame({"overnight_high": overnight_high, "overnight_low": overnight_low})
+    out = pd.DataFrame({"overnight_high": overnight_high, "overnight_low": overnight_low,
+                        "overnight_open": overnight_open})
+    out["overnight_mid"] = (out["overnight_high"] + out["overnight_low"]) / 2.0
     out = out.reindex(fam2.index.union(out.index)).sort_index()
     vwap_valid = fam2["vwap_on"].notna()
     out["overnight_high_dev_vwap"] = (out["overnight_high"] - fam2["vwap_on"]).where(vwap_valid)
@@ -139,13 +178,21 @@ LEVEL_COLUMNS = {
     **{f"mult_D_{m}": ("family1", "down", "scale_D") for m in MULT_LADDER},
     **{f"mad_U_{k}": ("family1", "up", "scale_U") for k in MAD_LADDER},
     **{f"mad_D_{k}": ("family1", "down", "scale_D") for k in MAD_LADDER},
+    **{f"q_U_{_quantile_label(q)}": ("family1", "up", "scale_U") for q in QUANTILE_LADDER},
+    **{f"q_D_{_quantile_label(q)}": ("family1", "down", "scale_D") for q in QUANTILE_LADDER},
     **{f"vwap_on_j{j:+d}": ("family2", "up" if j > 0 else ("down" if j < 0 else "neutral"), None)
        for j in VWAP_J},
     "prior_high": ("family3", "up", None),
     "prior_low": ("family3", "down", None),
     "prior_close": ("family3", "neutral", None),
+    "prior_rth_mid": ("family3", "neutral", None),
+    "prior_rth_vwap": ("family3", "neutral", None),
     "overnight_high": ("family4", "up", None),
     "overnight_low": ("family4", "down", None),
+    "overnight_mid": ("family4", "neutral", None),
+    "overnight_open": ("family4", "neutral", None),
+    # overnight_high_dev_vwap / overnight_low_dev_vwap are diagnostic
+    # distances, NOT candidate price levels -- intentionally excluded here.
 }
 
 HORIZON_EXPOSURE = {"family1": "INTRADAY_ROLLING", "family2": "PRE_OPEN",

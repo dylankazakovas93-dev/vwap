@@ -30,3 +30,15 @@
 11. Overnight-window bar counts can vary substantially across sessions
     (holidays, DST transitions, data gaps); the `>=30`-bar validity floor
     is a coarse filter, not a data-quality audit of the overnight leg.
+12. (Revision 3 correction) The family-1 quantile ladder (`p25/p75/p90/
+    p95`) uses pandas' default (linear) interpolation for the rolling
+    quantile; no alternative interpolation method is tested or offered.
+13. `prior_settlement_open` is explicitly NOT implemented and must not be
+    added without a fresh, explicit approval — its earlier appearance in
+    SPEC_LEVELS.md Revision 2 was a drafting error, not an authorized
+    candidate level (DECISIONS.md #13).
+14. `overnight_high_dev_vwap`/`overnight_low_dev_vwap` remain diagnostic
+    distances, not price levels; a future generation wanting to test
+    reactions to "how far the overnight range sits from VWAP" as a level
+    in its own right would need a fresh design decision, not an assumption
+    that these fields are already usable as such.

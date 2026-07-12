@@ -1,9 +1,9 @@
 instrument,family,n_total,n_missing,missing_frac,reason
-ES,family1,18074,868,0.048024786986831915,60-session warm-up (exact-window causal scale invalid)
-ES,family2,6455,0,0.0,<30 valid overnight bars
-ES,family3,3873,138,0.03563129357087529,predecessor session was an early close (or no predecessor)
-ES,family4,2582,0,0.0,no overnight bars (raw levels) / <30 overnight bars (VWAP-deviation fields)
-NQ,family1,18046,868,0.04809930178432894,60-session warm-up (exact-window causal scale invalid)
-NQ,family2,6445,0,0.0,<30 valid overnight bars
-NQ,family3,3867,138,0.035686578743211794,predecessor session was an early close (or no predecessor)
-NQ,family4,2578,0,0.0,no overnight bars (raw levels) / <30 overnight bars (VWAP-deviation fields)
+ES,family1,28402,1364,0.048024786986831915,60-session warm-up (exact-window causal scale invalid)
+ES,family2,9037,0,0.0,<30 valid overnight bars
+ES,family3,6455,230,0.03563129357087529,predecessor session was an early close (or no predecessor)
+ES,family4,5164,0,0.0,no overnight bars (raw levels) / <30 overnight bars (VWAP-deviation fields)
+NQ,family1,28358,1364,0.04809930178432894,60-session warm-up (exact-window causal scale invalid)
+NQ,family2,9023,0,0.0,<30 valid overnight bars
+NQ,family3,6445,230,0.035686578743211794,predecessor session was an early close (or no predecessor)
+NQ,family4,5156,0,0.0,no overnight bars (raw levels) / <30 overnight bars (VWAP-deviation fields)

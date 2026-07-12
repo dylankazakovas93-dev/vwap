@@ -247,3 +247,93 @@ def test_long_levels_one_row_per_session_level_and_instrument_tagged():
     assert (long_nq["instrument"] == "NQ").all()
     dup_check = long_es.groupby(["session_date", "level_id"]).size()
     assert (dup_check == 1).all()
+
+
+# ------------------------------------------------- correction: family 1 --
+def test_family1_quantile_levels_causal_window_and_p50_exclusion():
+    n = 65
+    rows = []
+    for i in range(n):
+        sd = pd.Timestamp("2021-01-01") + pd.Timedelta(days=i)
+        rows.append({"session_date": sd, "et_minute": 570, "ts_event": sd,
+                    "open": 100.0, "high": 100.0 + (i + 1) * 0.1, "low": 99.95, "volume": 10})
+    df = pd.DataFrame(rows)
+    scales = tx.build_scale_tables(df)
+    fam1 = lv.build_family1(df, scales)
+
+    # p50 must NOT exist as its own level_id anywhere in family1's columns
+    assert "q_U_p50" not in fam1.columns
+    assert "q_D_p50" not in fam1.columns
+    for q in lv.QUANTILE_LADDER:
+        label = lv._quantile_label(q)
+        assert f"q_U_{label}" in fam1.columns
+        assert f"q_D_{label}" in fam1.columns
+
+    sd60 = pd.Timestamp("2021-01-01") + pd.Timedelta(days=60)
+    for i in range(60):
+        sd = pd.Timestamp("2021-01-01") + pd.Timedelta(days=i)
+        assert np.isnan(fam1.loc[sd, "q_U_p75"])
+    # session 60: exactly 60 predecessors (U_0930 = (i+1)*0.1 for i in 0..59)
+    expected_p75 = np.quantile([(i + 1) * 0.1 for i in range(60)], 0.75)
+    assert abs((fam1.loc[sd60, "q_U_p75"] - fam1.loc[sd60, "open"]) - expected_p75) < 1e-9
+
+
+def test_family1_p50_alias_equals_median_multiplier():
+    df = make_session_df(n_sessions=65)
+    scales = tx.build_scale_tables(df)
+    fam1 = lv.build_family1(df, scales)
+    dup = dg.structural_duplicates(fam1)
+    assert set(dup["level_id"]) == {"mult_U_1.0", "mult_D_1.0"}
+    assert dup["is_structural_duplicate"].all()
+
+
+# ------------------------------------------------- correction: family 2 --
+def test_family2_three_sigma_bands_added():
+    df = make_session_df(n_sessions=2, overnight_bars=40)
+    fam2 = lv.build_family2(df)
+    sd0 = pd.Timestamp("2021-01-01")
+    assert abs((fam2.loc[sd0, "vwap_on_j+3"] - fam2.loc[sd0, "vwap_on"]) - 3 * fam2.loc[sd0, "sigma_on"]) < 1e-9
+    assert abs((fam2.loc[sd0, "vwap_on"] - fam2.loc[sd0, "vwap_on_j-3"]) - 3 * fam2.loc[sd0, "sigma_on"]) < 1e-9
+
+
+# ------------------------------------------------- correction: family 3 --
+def test_family3_prior_rth_mid_and_vwap():
+    df = make_session_df(n_sessions=3, early_close_sessions={1})
+    fam3 = lv.build_family3(df)
+    sd0, sd1, sd2 = [pd.Timestamp("2021-01-01") + pd.Timedelta(days=i) for i in range(3)]
+    assert np.isfinite(fam3.loc[sd1, "prior_rth_mid"])
+    assert np.isfinite(fam3.loc[sd1, "prior_rth_vwap"])
+    # session 1's predecessor (session 0) is not early close -> mid = (high+low)/2
+    rth0 = df[(df["session_date"] == sd0) & (df["et_minute"] >= lv.OPEN_MINUTE) & (df["et_minute"] <= lv.RTH_END_MINUTE)]
+    expected_mid = (rth0["high"].max() + rth0["low"].min()) / 2.0
+    assert abs(fam3.loc[sd1, "prior_rth_mid"] - expected_mid) < 1e-9
+    # session 2's predecessor (session 1) IS early close -> both missing
+    assert np.isnan(fam3.loc[sd2, "prior_rth_mid"])
+    assert np.isnan(fam3.loc[sd2, "prior_rth_vwap"])
+
+
+def test_family3_prior_settlement_open_not_implemented():
+    df = make_session_df(n_sessions=3)
+    fam3 = lv.build_family3(df)
+    assert "prior_settlement_open" not in fam3.columns
+    assert "prior_settlement_open" not in lv.LEVEL_COLUMNS
+
+
+# ------------------------------------------------- correction: family 4 --
+def test_family4_mid_and_open_and_vwap_crossref_not_recomputed():
+    df = make_session_df(n_sessions=2, overnight_bars=40)
+    fam2 = lv.build_family2(df)
+    fam4 = lv.build_family4(df, fam2)
+    sd0 = pd.Timestamp("2021-01-01")
+    assert abs(fam4.loc[sd0, "overnight_mid"] - (fam4.loc[sd0, "overnight_high"] + fam4.loc[sd0, "overnight_low"]) / 2.0) < 1e-9
+    sub = df[(df["session_date"] == sd0) & (df["et_minute"] < lv.OPEN_MINUTE)].sort_values("ts_event")
+    assert fam4.loc[sd0, "overnight_open"] == sub.iloc[0]["open"]
+    # cross-referenced deviation fields must use family 2's own vwap_on value directly
+    assert abs(fam4.loc[sd0, "overnight_high_dev_vwap"] - (fam4.loc[sd0, "overnight_high"] - fam2.loc[sd0, "vwap_on"])) < 1e-9
+
+
+def test_family4_dev_vwap_fields_excluded_from_level_inventory():
+    assert "overnight_high_dev_vwap" not in lv.LEVEL_COLUMNS
+    assert "overnight_low_dev_vwap" not in lv.LEVEL_COLUMNS
+    assert "overnight_mid" in lv.LEVEL_COLUMNS
+    assert "overnight_open" in lv.LEVEL_COLUMNS
