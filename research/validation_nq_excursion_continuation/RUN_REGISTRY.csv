@@ -1,1 +1,6 @@
 run_id,timestamp_utc,git_sha,dataset_hash,stage,hypothesis_id,config_hash,parent_run_id,change_reason,train_period,validation_period,test_period,seed,command,status,primary_metric,selected,notes
+v_001,2026-07-12T19:54:05.082992+00:00,PENDING_SHA,see VALIDATION_DATA_CONTRACT.md,frozen_validation_2023plus,primary_nq_upper_k0_a2_h2,,,,2018-2022,2023-2026,,,"{}",ok,,,
+v_002,2026-07-12T19:54:05.082992+00:00,PENDING_SHA,see VALIDATION_DATA_CONTRACT.md,frozen_validation_2023plus,supporting_upper_k1_k2,,,,2018-2022,2023-2026,,,"{}",ok,,,
+v_003,2026-07-12T19:54:05.082992+00:00,PENDING_SHA,see VALIDATION_DATA_CONTRACT.md,frozen_validation_2023plus,negative_controls,,,,2018-2022,2023-2026,,,"{}",ok,,,
+v_004,2026-07-12T19:54:05.082992+00:00,PENDING_SHA,see VALIDATION_DATA_CONTRACT.md,frozen_validation_2023plus,same_bar_morphology,,,,2018-2022,2023-2026,,,"{}",ok,,,
+v_005,2026-07-12T19:54:05.082992+00:00,PENDING_SHA,see VALIDATION_DATA_CONTRACT.md,frozen_validation_2023plus,rolling_state_replication,,,,2018-2022,2023-2026,,,"{}",ok,,,
