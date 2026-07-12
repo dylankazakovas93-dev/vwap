@@ -1,0 +1,15 @@
+# DECISIONS.md — generation 10 (NQ excursion-level timing study)
+
+Implementation-level judgment calls required to execute Dylan's frozen
+methodology exactly; none alter its substance, thresholds, or scope.
+
+| # | Decision | Rationale |
+|---|---|---|
+| 1 | New branch `research/nq-excursion-level-timing` from `research/simple-cash-open-level-study` @ `4d5ee1b`; self-contained, does not import generation 9's `src/` | Per instruction: does not inherit the 86-level library; generation 9's engine is scoped to a different horizon/activation ladder and a different level set, so a fresh, purpose-built implementation avoids silently carrying over unrequested defaults |
+| 2 | `side` is a static property of `level_id` (`upper`/`lower`), never computed per-session from `level_value` vs. `O_0930` | Unlike generations 8/9, `UPPER_k`/`LOWER_k` are constructed as `O + MEAN_U_10 + k·SD_U_10` / `O − MEAN_D_10 − k·SD_D_10` with `MEAN_U_10, SD_U_10, MEAN_D_10, SD_D_10 ≥ 0` by construction (both are excursions, non-negative) and `k≥0`, so `UPPER_k ≥ O` and `LOWER_k ≤ O` always (equality only in the degenerate all-zero case) — no orientation-ambiguity concept is needed or introduced |
+| 3 | Nested activation windows are pure post-hoc filters on one first-touch elapsed-bar count (`elapsed_bar ≤ A`), never a re-search | Directly stated in §7-8 of the frozen spec ("Do not independently search again for every activation window") |
+| 4 | Timing-surface/outcome/barrier storage is long-format (one row per event×horizon, one row per event×horizon×b), not wide-column-per-horizon | Same rationale as generations 8-9: tractable at 1936 max primary cells; frozen spec does not mandate a storage shape |
+| 5 | Rolling-state "immediately preceding 10 valid touch events" is ordered by `session_date` ascending within `(instrument, level_id)`, using only events from strictly earlier sessions than the current one (never same-session, which cannot occur anyway since each level has at most one first-touch per session) | Matches §20's "look backward... before the current session" requirement precisely |
+| 6 | Alias/coincident-level detection uses the instrument tick size (ES/NQ both 0.25) for "within one tick", exact floating-point equality (post round-to-tick) for "exact duplicates" | Consistent with generation 9's own operationalization of the same instruction |
+| 7 | ES negative-control analysis uses the identical code path and identical frozen constants as NQ (same module, `instrument="ES"` parameter) — no NQ-tuned constant is smuggled in, and ES's own results are computed and reported but never fed back into any NQ threshold or level definition | Per instruction: "ES results must remain separate and cannot be used to alter the NQ definitions" |
+| 8 | Same-bar and post-touch (barrier/coherence) classifications are computed and reported as fully independent tables — no code path lets one influence the other's classification | Per instruction: "Do not force same-bar and post-touch behavior into one narrative" |
