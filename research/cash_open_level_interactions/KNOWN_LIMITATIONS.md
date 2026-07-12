@@ -35,3 +35,22 @@
     project dependency-lock file exists to record this formally.
 11. As in generation 7, roll-week sessions are not excluded (consistent
     with prior generations' policy).
+12. **Critical, verified during this generation's analysis**: generation
+    7's synthetic control caps its draw at `[bucket_lo, bucket_lo+1.0)`
+    for the open-ended `[2.0,∞)` normalized-distance bucket, while the
+    real level's actual distance in that bucket is unbounded (verified:
+    ES `prior_low`, mean real distance 23.1 scale-units vs. mean
+    synthetic 2.5, max real 126.5). This makes Family A's touch-rate
+    comparison mechanically biased (not a market effect) for the 17
+    level_ids that predominantly land in that bucket (see
+    `LEVEL_INTERACTION_REPORT.md`'s critical caveat). Not fixed here, per
+    instruction to reuse generation 7's control unmodified; disclosed as
+    the dominant interpretive limitation of this generation's Family A
+    results.
+13. Family B (paired D_5) reached zero confirmatory cells across all 76
+    (instrument, level_id) tests — `real_isolated=1` and
+    `synthetic_isolated=1` co-occurred in only 1 of 49058 ES unit-rows.
+    This is a structural consequence of 38 densely-spaced levels sharing
+    a `0.10·side_scale` isolation threshold, verified by passing tests,
+    not a computation defect — but it means this generation cannot speak
+    to the paired post-touch-path question at all for this level library.

@@ -1,0 +1,3 @@
+instrument,n_units,n_real_valid,n_synthetic_valid,n_touch_window_complete,n_outcome_window_complete,n_mutually_touch_eligible,n_real_normalized_outcome_eligible,n_synthetic_normalized_outcome_eligible,n_real_isolated,n_synthetic_isolated,n_pair_separated
+ES,49058,47464,46497,48868,48830,46383,27780,33990,751,24,21787
+NQ,48982,47388,46421,48792,48754,46307,28579,33704,775,23,22218

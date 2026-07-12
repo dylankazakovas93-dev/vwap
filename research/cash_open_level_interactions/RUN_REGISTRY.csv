@@ -1,1 +1,11 @@
 run_id,timestamp_utc,git_sha,dataset_hash,stage,hypothesis_id,config_hash,parent_run_id,change_reason,train_period,validation_period,test_period,seed,command,status,primary_metric,selected,notes
+g8_001,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,family_a_touch_rate,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g8_002,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,family_b_paired_d5,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g8_003,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,secondary_grid,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g8_004,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g8_005,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,eligibility_summary,,,,2018-2022,,,,"{""instrument"": ""ES""}",ok,,,
+g8_006,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,family_a_touch_rate,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g8_007,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,family_b_paired_d5,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g8_008,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,secondary_grid,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g8_009,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,year_stability,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
+g8_010,2026-07-12T11:02:15.239507+00:00,e71c0bc,see DATA_CONTRACT.md,level_interaction_analysis,eligibility_summary,,,,2018-2022,,,,"{""instrument"": ""NQ""}",ok,,,
