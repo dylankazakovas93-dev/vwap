@@ -1,5 +1,5 @@
 from __future__ import annotations
-import io, re, zipfile
+import csv, io, re, zipfile
 from collections import defaultdict
 import numpy as np
 import pandas as pd
@@ -19,18 +19,25 @@ def session_info(ts):
     if 570 <= m <= 959: return ts.date(), "NEW_YORK"
     return None, None
 
-def _member(path):
+def _read_dev_member(path):
+    """Stream rows only through the development cutoff; do not parse validation rows."""
+    cutoff=END.tz_convert("UTC")
     with zipfile.ZipFile(path) as zf:
-        names = [n for n in zf.namelist() if n.endswith(".csv.zst")]
-        if len(names) != 1: raise ValueError(f"expected one csv.zst: {path}")
-        return zf.read(names[0])
+        names=[n for n in zf.namelist() if n.endswith(".csv.zst")]
+        if len(names)!=1: raise ValueError(f"expected one csv.zst: {path}")
+        chunks=[]
+        with zf.open(names[0]) as compressed, zstd.ZstdDecompressor().stream_reader(compressed) as rd:
+            for chunk in pd.read_csv(rd, usecols=["ts_event","open","high","low","close","volume","symbol"], chunksize=100000):
+                ts=pd.to_datetime(chunk.ts_event,utc=True)
+                good=ts<=cutoff; chunks.append(chunk.loc[good].copy())
+                if (~good).any(): break
+    return pd.concat(chunks,ignore_index=True) if chunks else pd.DataFrame()
 
 def load_archives(instrument, paths):
     frames=[]
     for path in paths:
-        raw=_member(path)
-        with zstd.ZstdDecompressor().stream_reader(io.BytesIO(raw)) as rd: data=rd.read()
-        d=pd.read_csv(io.BytesIO(data), usecols=["ts_event","open","high","low","close","volume","symbol"])
+        d=_read_dev_member(path)
+        d=d[["ts_event","open","high","low","close","volume","symbol"]]
         d["ts_event"]=pd.to_datetime(d.ts_event, utc=True).dt.tz_convert(ET); frames.append(d)
     d=pd.concat(frames, ignore_index=True)
     d=d[d.symbol.astype(str).str.match(re.compile(rf"^{instrument}[HMUZ]\d$"))].drop_duplicates(["ts_event","symbol"])

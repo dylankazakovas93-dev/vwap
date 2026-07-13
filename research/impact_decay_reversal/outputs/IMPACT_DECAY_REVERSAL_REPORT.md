@@ -1,15 +1,13 @@
 # Impact-decay reversal — frozen 2018–2022 development study
 
-No validation or trading simulation was run.
+## Verdict
 
-## Plain-English verdict
-
-High diagnostic volume does not receive positive mechanism support beyond the
-observed price stall. Eleven of twelve primary cells are `NULL_OR_MIXED`; the
-NQ New York downward cell is `HIGH_VOLUME_REVERSAL_REJECTED`, with high-volume
-decay reversing 9.93 percentage points less often than the low-volume stall
-control (q = 0.00015). This is opposite the preregistered positive mechanism,
-not evidence for a tradable effect.
+High diagnostic volume does not add supported positive predictive information
+beyond the observed price stall. Eleven of twelve primary cells are
+`NULL_OR_MIXED`; NQ New York downward is `HIGH_VOLUME_REVERSAL_REJECTED`, with
+high-volume decay reversing 9.93 percentage points less often than the
+low-volume stall control (BH q = 0.00015). No profitability or validation
+analysis was performed.
 
 ## Sample accounting
 
@@ -67,4 +65,4 @@ instrument  session  direction  n_high_volume_decay  n_low_volume_control  resol
         NQ NEW_YORK         -1                  205                   166            177           150               1              1            18            3                9              12               9            0.440678           0.540000   -0.099322 0.000100 0.000150 HIGH_VOLUME_REVERSAL_REJECTED
         NQ NEW_YORK          1                  230                   228            202           208               0              0            24            9                4              11               6            0.425743           0.456731   -0.030988 0.000100 0.000150                 NULL_OR_MIXED
 
-Adjacent horizons: `adjacent_horizon_table.csv`. Supporting control: `high_volume_progress_control.csv`. Year stability: `year_stability_table.csv`. Cross-market diagnostics: `cross_market_confirmation_table.csv`. 
+Adjacent horizons: `adjacent_horizon_table.csv`. Supporting control: `high_volume_progress_control.csv`. Year stability: `year_stability_table.csv`. Cross-market diagnostics: `cross_market_confirmation_table.csv`.
