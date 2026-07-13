@@ -42,7 +42,7 @@ def classify_outcome(events: pd.DataFrame, leg_bar_index: dict) -> pd.DataFrame:
         if bars is None:
             rows.append(row)
             continue
-        result = _residual_path(bars, t, alpha, beta, PRIMARY_HORIZON)
+        result = _residual_path(bars, t, alpha, beta, max(HORIZONS))
         if result is None:
             for H in HORIZONS:
                 row[f"horizon_{H}_complete"] = False
