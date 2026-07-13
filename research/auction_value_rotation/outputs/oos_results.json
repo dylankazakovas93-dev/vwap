@@ -1,0 +1,388 @@
+{
+  "root": "NQ",
+  "oos_years": [
+    2019,
+    2021,
+    2023,
+    2025
+  ],
+  "evaluated_at": "2026-07-13T17:00:48.107744+00:00",
+  "verdicts": [
+    {
+      "row": 1,
+      "criteria": {
+        "oos01_positive_pooled_effect": true,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": true,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": true,
+        "oos06_same_sign_30_60": true,
+        "oos07_no_year_over_50pct_effect_mass": true,
+        "oos08_alt_profile_support": true,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 309,
+        "n_control_all": 768,
+        "n_treat_matched": 277,
+        "n_control_matched": 239,
+        "pooled_diff_h60": 0.02611664123982299,
+        "pooled_diff_h30": 0.02611664123982299,
+        "pooled_diff_h120": 0.03000562512952598,
+        "year_effects": {
+          "2019": {
+            "diff": 0.02729528535980147,
+            "n_treat": 62,
+            "n_control": 39
+          },
+          "2021": {
+            "diff": -0.05279503105590061,
+            "n_treat": 46,
+            "n_control": 42
+          },
+          "2023": {
+            "diff": 0.12195121951219512,
+            "n_treat": 41,
+            "n_control": 41
+          },
+          "2025": {
+            "diff": 0.0733333333333333,
+            "n_treat": 45,
+            "n_control": 50
+          }
+        },
+        "positive_years": 3,
+        "worst_year_effect": -0.05279503105590061,
+        "max_year_share": 0.4025479961072283,
+        "permutation": {
+          "n_treat": 304,
+          "n_control": 723,
+          "observed_diff": 0.02611664123982299,
+          "p_value": 0.8288171182881712,
+          "n_strata": 58
+        },
+        "row": 1,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_1_TICK",
+        "B": 5,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.2,
+        "E": null,
+        "dev_diff_h60": 0.1738,
+        "bh_q": 0.9566043395660434,
+        "alt_profile_support": true
+      }
+    },
+    {
+      "row": 2,
+      "criteria": {
+        "oos01_positive_pooled_effect": true,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": false,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": false,
+        "oos06_same_sign_30_60": true,
+        "oos07_no_year_over_50pct_effect_mass": true,
+        "oos08_alt_profile_support": false,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 283,
+        "n_control_all": 768,
+        "n_treat_matched": 255,
+        "n_control_matched": 187,
+        "pooled_diff_h60": 0.019964349376114077,
+        "pooled_diff_h30": 0.019964349376114077,
+        "pooled_diff_h120": 0.02562581806282721,
+        "year_effects": {
+          "2019": {
+            "diff": -0.014460511679644072,
+            "n_treat": 58,
+            "n_control": 31
+          },
+          "2021": {
+            "diff": -0.08917682926829268,
+            "n_treat": 41,
+            "n_control": 32
+          },
+          "2023": {
+            "diff": 0.11730769230769228,
+            "n_treat": 40,
+            "n_control": 39
+          },
+          "2025": {
+            "diff": 0.06794871794871793,
+            "n_treat": 40,
+            "n_control": 39
+          }
+        },
+        "positive_years": 2,
+        "worst_year_effect": -0.08917682926829268,
+        "max_year_share": 0.3941388092203678,
+        "row": 2,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_1_TICK",
+        "B": 5,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.2,
+        "E": 4.0,
+        "dev_diff_h60": 0.1871,
+        "bh_q": null,
+        "alt_profile_support": false
+      }
+    },
+    {
+      "row": 3,
+      "criteria": {
+        "oos01_positive_pooled_effect": true,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": true,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": true,
+        "oos06_same_sign_30_60": true,
+        "oos07_no_year_over_50pct_effect_mass": true,
+        "oos08_alt_profile_support": true,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 301,
+        "n_control_all": 768,
+        "n_treat_matched": 269,
+        "n_control_matched": 211,
+        "pooled_diff_h60": 0.018710689053718366,
+        "pooled_diff_h30": 0.018710689053718366,
+        "pooled_diff_h120": 0.023514211886304925,
+        "year_effects": {
+          "2019": {
+            "diff": 0.016666666666666663,
+            "n_treat": 60,
+            "n_control": 36
+          },
+          "2021": {
+            "diff": -0.07350427350427352,
+            "n_treat": 45,
+            "n_control": 39
+          },
+          "2023": {
+            "diff": 0.12195121951219512,
+            "n_treat": 41,
+            "n_control": 41
+          },
+          "2025": {
+            "diff": 0.0805445263754963,
+            "n_treat": 43,
+            "n_control": 41
+          }
+        },
+        "positive_years": 3,
+        "worst_year_effect": -0.07350427350427352,
+        "max_year_share": 0.3915087410019098,
+        "permutation": {
+          "n_treat": 296,
+          "n_control": 723,
+          "observed_diff": 0.018710689053718366,
+          "p_value": 0.9566043395660434,
+          "n_strata": 53
+        },
+        "row": 3,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_1_TICK",
+        "B": 5,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.2,
+        "E": 6.0,
+        "dev_diff_h60": 0.1789,
+        "bh_q": 0.9566043395660434,
+        "alt_profile_support": true
+      }
+    },
+    {
+      "row": 4,
+      "criteria": {
+        "oos01_positive_pooled_effect": true,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": true,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": false,
+        "oos06_same_sign_30_60": true,
+        "oos07_no_year_over_50pct_effect_mass": true,
+        "oos08_alt_profile_support": false,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 278,
+        "n_control_all": 768,
+        "n_treat_matched": 247,
+        "n_control_matched": 208,
+        "pooled_diff_h60": 0.0083502024291498,
+        "pooled_diff_h30": 0.0083502024291498,
+        "pooled_diff_h120": 0.013237979306147285,
+        "year_effects": {
+          "2019": {
+            "diff": 0.026203208556149715,
+            "n_treat": 55,
+            "n_control": 34
+          },
+          "2021": {
+            "diff": -0.05128205128205132,
+            "n_treat": 42,
+            "n_control": 39
+          },
+          "2023": {
+            "diff": 0.09193245778611636,
+            "n_treat": 39,
+            "n_control": 41
+          },
+          "2025": {
+            "diff": 0.07317073170731708,
+            "n_treat": 41,
+            "n_control": 41
+          }
+        },
+        "positive_years": 3,
+        "worst_year_effect": -0.05128205128205132,
+        "max_year_share": 0.352183599022164,
+        "row": 4,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_1_TICK",
+        "B": 3,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.2,
+        "E": 6.0,
+        "dev_diff_h60": 0.2039,
+        "bh_q": null,
+        "alt_profile_support": false
+      }
+    },
+    {
+      "row": 5,
+      "criteria": {
+        "oos01_positive_pooled_effect": true,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": true,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": false,
+        "oos06_same_sign_30_60": true,
+        "oos07_no_year_over_50pct_effect_mass": true,
+        "oos08_alt_profile_support": false,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 284,
+        "n_control_all": 768,
+        "n_treat_matched": 253,
+        "n_control_matched": 235,
+        "pooled_diff_h60": 0.017122193255403262,
+        "pooled_diff_h30": 0.017122193255403262,
+        "pooled_diff_h120": 0.021085230454979786,
+        "year_effects": {
+          "2019": {
+            "diff": 0.04247104247104244,
+            "n_treat": 56,
+            "n_control": 37
+          },
+          "2021": {
+            "diff": -0.03156146179401992,
+            "n_treat": 43,
+            "n_control": 42
+          },
+          "2023": {
+            "diff": 0.09193245778611636,
+            "n_treat": 39,
+            "n_control": 41
+          },
+          "2025": {
+            "diff": 0.06558139534883722,
+            "n_treat": 43,
+            "n_control": 50
+          }
+        },
+        "positive_years": 3,
+        "worst_year_effect": -0.03156146179401992,
+        "max_year_share": 0.35355544560634034,
+        "row": 5,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_1_TICK",
+        "B": 3,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.2,
+        "E": null,
+        "dev_diff_h60": 0.1854,
+        "bh_q": null,
+        "alt_profile_support": false
+      }
+    },
+    {
+      "row": 6,
+      "criteria": {
+        "oos01_positive_pooled_effect": false,
+        "oos02_effect_ge_half_dev": false,
+        "oos03_positive_ge3_of_4_years": false,
+        "oos04_bh_q_le_0_10": false,
+        "oos05_adequate_samples": false,
+        "oos06_same_sign_30_60": false,
+        "oos07_no_year_over_50pct_effect_mass": false,
+        "oos08_alt_profile_support": false,
+        "oos09_opposite_edge_reported": true,
+        "PASS": false
+      },
+      "result": {
+        "n_treat_all": 283,
+        "n_control_all": 768,
+        "n_treat_matched": 258,
+        "n_control_matched": 303,
+        "pooled_diff_h60": -0.023486069537186294,
+        "pooled_diff_h30": -0.023486069537186294,
+        "pooled_diff_h120": -0.025244798041615668,
+        "year_effects": {
+          "2019": {
+            "diff": -0.20613107822410148,
+            "n_treat": 66,
+            "n_control": 86
+          },
+          "2021": {
+            "diff": -0.0853658536585366,
+            "n_treat": 41,
+            "n_control": 38
+          },
+          "2023": {
+            "diff": 0.040996367410482626,
+            "n_treat": 41,
+            "n_control": 47
+          },
+          "2025": {
+            "diff": 0.1387846961740435,
+            "n_treat": 43,
+            "n_control": 62
+          }
+        },
+        "positive_years": 2,
+        "worst_year_effect": -0.20613107822410148,
+        "max_year_share": 0.5496108337839027,
+        "row": 6,
+        "mapping_id": "M2_LONDON_TO_NY",
+        "side": "short",
+        "A": "A_GE_5PCT_VA",
+        "B": 5,
+        "C": "R1_ONE_CLOSE",
+        "D": 0.1,
+        "E": null,
+        "dev_diff_h60": 0.082,
+        "bh_q": null,
+        "alt_profile_support": false
+      }
+    }
+  ],
+  "family_pass": false,
+  "primary_row_pass": false
+}
