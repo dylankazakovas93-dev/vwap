@@ -72,7 +72,16 @@ def build_matched_inside_state_controls(mapping_df: pd.DataFrame, target_bars_by
                 "confirmation_ts": ts[candidate_idx], "confirmation_close": float(c),
                 "poc_distance_pct": float(abs(poc - c) / va_width) if va_width > 0 else np.nan,
                 "freshness_hours": float((pd.Timestamp(ts[candidate_idx]) - pd.Timestamp(prow["completion_ts"])).total_seconds() / 3600),
-                "excursion_extreme": float(c),  # matched-inside-state control has no excursion; symmetric fallback
+                # MATCHED_INSIDE_STATE never breached, so it has no "excursion's own
+                # low/high" for the second half of the SPEC sec-6 failure test; using
+                # the control's own anchor close there (as an earlier draft did) makes
+                # the failure test trigger on almost any 1-tick wobble on the very next
+                # bar, since close is rarely the bar's exact low/high -- a spurious
+                # near-immediate REDISCOVERY_FIRST for nearly every control. Disabling
+                # that disjunct (+/-inf) leaves the fair, single-sided "close crosses
+                # back through the level" failure test, the only part of sec-6 that
+                # actually applies to a no-excursion control.
+                "excursion_extreme": -np.inf if side == "long" else np.inf,
                 "control_type": "MATCHED_INSIDE_STATE",
                 "confirmation_et_minute": int(et_minute[candidate_idx]),
                 "confirmation_atr20": float(atr20[candidate_idx]) if not np.isnan(atr20[candidate_idx]) else np.nan,

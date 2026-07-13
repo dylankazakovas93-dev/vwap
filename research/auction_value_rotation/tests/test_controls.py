@@ -75,6 +75,33 @@ def test_matched_inside_state_excludes_bars_within_lookback_of_breach():
     assert long_rows[0]["confirmation_ts"] == bars["ts_event"].iloc[-3]
 
 
+def test_matched_inside_state_excursion_extreme_disables_wobble_trigger():
+    # regression test: excursion_extreme must not be the control's own close
+    # (that would make the sec-6 "trade below excursion_extreme" failure test
+    # trigger on almost any 1-tick downtick on the very next bar); it must be
+    # +/-inf so only the close-crosses-level failure test applies.
+    closes = [100.5] * 5
+    bars = make_bars(closes)
+    mapping_df = pd.DataFrame([{
+        "mapping_id": "M1_ASIA_TO_LONDON", "target_session_leg_id": "T1",
+        "poc": 101.0, "val": 100.0, "vah": 102.0, "va_width": 2.0,
+        "completion_ts": bars["ts_event"].iloc[0] - pd.Timedelta(minutes=1),
+        "expiry_ts": bars["ts_event"].iloc[-1] + pd.Timedelta(minutes=5),
+    }])
+    target_bars_by_leg = {"T1": bars}
+    breach_ts_by_profile_side = {("T1", "long"): [], ("T1", "short"): []}
+    out = ctl.build_matched_inside_state_controls(mapping_df, target_bars_by_leg, breach_ts_by_profile_side)
+    long_row = next(r for r in out if r["side"] == "long")
+    assert long_row["excursion_extreme"] == -np.inf
+
+    closes_short = [101.5] * 5  # inside short-half (poc,vah)=(101,102)
+    bars_short = make_bars(closes_short)
+    target_bars_by_leg_short = {"T1": bars_short}
+    out_short = ctl.build_matched_inside_state_controls(mapping_df, target_bars_by_leg_short, breach_ts_by_profile_side)
+    short_row = next(r for r in out_short if r["side"] == "short")
+    assert short_row["excursion_extreme"] == np.inf
+
+
 def test_matched_inside_state_no_qualifying_bar_returns_nothing_for_that_side():
     closes = [102.5] * 5  # always above vah -> never inside either half
     bars = make_bars(closes)

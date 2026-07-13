@@ -64,7 +64,7 @@ def assign_leg(bucket_min: int) -> str:
     return "EXCLUDED"
 
 
-LEG_EXPECTED_BARS = {"ASIA": 930, "LONDON": 330, "NEW_YORK_RTH": 390}
+LEG_EXPECTED_BARS = {"ASIA": 540, "LONDON": 330, "NEW_YORK_RTH": 390}
 
 
 def add_causal_atr(df1m: pd.DataFrame) -> pd.DataFrame:
