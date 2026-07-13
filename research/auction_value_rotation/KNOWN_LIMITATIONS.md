@@ -57,3 +57,28 @@
     (`DECISIONS.md` #7) — this generation cannot speak to whether any
     context variable would have mattered for a mechanism that itself was
     not found to be robust.
+12. A development-stage candidate family (`M2_LONDON_TO_NY`, short,
+    `R1_ONE_CLOSE`) passed all 12 candidate-selection criteria,
+    including multi-year, multi-horizon, multi-profile-model, and
+    adjacent-parameter-neighborhood robustness checks, and still failed
+    OOS decisively (pooled effect shrank from +17.4pp to +2.6pp,
+    p=0.83). This is the exact scenario the 12-criteria gate and the
+    non-consecutive-year OOS split were designed to catch, and it did
+    catch it — but it is a direct demonstration that surviving a
+    432-cell x 8-mapping/side development grid, even with a strict
+    gate, is not sufficient evidence on its own; only the OOS result is.
+13. `MATCHED_INSIDE_STATE` control construction samples one
+    representative bar per `(profile, side)` rather than exhaustively
+    enumerating every qualifying inside bar (`DECISIONS.md` #11a). This
+    keeps the control population's scale comparable to the treatment
+    population but means the control sample is smaller/coarser than an
+    exhaustive enumeration would produce; it is possible a different,
+    exhaustive control construction would show a different degree of
+    (already-observed) OOS shrinkage.
+14. ES was not evaluated in this generation. The task specified ES only
+    as secondary confirmation for a mechanism that first survives on
+    NQ; since the sole NQ candidate family failed OOS decisively, there
+    is no surviving finding for ES to confirm, and running ES here would
+    only be a second, undisclosed attempt to find a replacement result
+    after the first attempt failed — exactly the kind of OOS-adjacent
+    subgroup search `SPEC_AUCTION_VALUE.md` section 12 prohibits.
