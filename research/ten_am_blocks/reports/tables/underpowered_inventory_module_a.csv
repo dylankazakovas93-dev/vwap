@@ -1,0 +1,2 @@
+instrument,candle_state,horizon_min,n_observations,n_nontied,cont_minus_rev_first_rate,median_signed_close_atr,binom_p,is_primary,q_value,n_years_ge10,max_year_sign_agreement,effect_pp,classification
+NQ,BULLISH_1000,1,631,17,0.02377179080824089,0.096045197740113,0.000274658203125,False,0.000274658203125,5,5,2.3771790808240887,UNDERPOWERED

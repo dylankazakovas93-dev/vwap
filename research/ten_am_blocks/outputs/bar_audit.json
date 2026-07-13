@@ -1,0 +1,22 @@
+[
+  {
+    "instrument": "ES",
+    "n_1m_rows_dev": 1754270,
+    "n_sessions_total": 1291,
+    "n_sessions_valid": 1286,
+    "n_sessions_upper_block_valid": 1223,
+    "n_sessions_lower_block_valid": 1233,
+    "n_module_a_events": 1286,
+    "n_module_b_events": 1465
+  },
+  {
+    "instrument": "NQ",
+    "n_1m_rows_dev": 1751547,
+    "n_sessions_total": 1291,
+    "n_sessions_valid": 1284,
+    "n_sessions_upper_block_valid": 1267,
+    "n_sessions_lower_block_valid": 1271,
+    "n_module_a_events": 1284,
+    "n_module_b_events": 1451
+  }
+]

@@ -43,3 +43,16 @@
     (other horizons, barriers, activation windows, context strata).
 11. Contract-roll weeks are not specially excluded, consistent with the
     root front-month series' policy of no back-adjustment.
+12. Module A's continuation/reversal directions and barriers are anchored
+    to `O_1000` (the 10:00 candle's open) while the candle's own
+    directional *state* is defined by where it *closes* relative to that
+    open (`DECISIONS.md` #10). The observed large, uniform, highly
+    significant "continuation" pattern across every instrument/candle-
+    state cell is very likely dominated by this open-vs-close anchoring
+    artifact rather than new predictive information revealed after the
+    candle closes — see `TEN_AM_REJECTION_BLOCK_REPORT.md` for the full
+    discussion. This is not corrected (the task's own Module A
+    definition specifies this anchoring), only disclosed.
+13. Module B's one directional finding (ES lower block, PRETOUCHED) is
+    not replicated in NQ and rests on a single-instrument sample; it
+    should not be read as a cross-confirmed mechanism.
