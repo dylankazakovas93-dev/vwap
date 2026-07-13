@@ -5,3 +5,6 @@ research/vwap_shock/outputs/*.log
 __pycache__/
 *.pyc
 .pytest_cache/
+research/efficient_displacement_continuation/outputs/*.parquet
+research/efficient_displacement_continuation/outputs/*.json
+research/efficient_displacement_continuation/outputs/*.log
