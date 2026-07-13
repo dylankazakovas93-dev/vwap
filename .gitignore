@@ -8,3 +8,9 @@ __pycache__/
 research/efficient_displacement_continuation/outputs/*.parquet
 research/efficient_displacement_continuation/outputs/*.json
 research/efficient_displacement_continuation/outputs/*.log
+research/efficient_displacement_continuation/outputs/*_causal_normalization_ledger.csv
+research/efficient_displacement_continuation/outputs/*_path_quality_ledger.csv
+research/efficient_displacement_continuation/outputs/*_three_minute_impulse_ledger.csv
+research/efficient_displacement_continuation/outputs/*_barrier_first_ledger.csv
+research/efficient_displacement_continuation/outputs/es_nq_confirmation_ledger.csv
+research/efficient_displacement_continuation/outputs/full_exploratory_table.csv
