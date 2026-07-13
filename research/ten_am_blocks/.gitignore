@@ -1,0 +1,3 @@
+outputs/*.parquet
+outputs/*.csv
+!outputs/.gitkeep
