@@ -140,12 +140,15 @@ def perm_pvalue(g, outcome_col="outcome_15", n=10000, seed=SEED):
     x=g[g.state.isin(["HIGH_VOLUME_DECAY","LOW_VOLUME_DECAY_CONTROL"]) & g[outcome_col].isin(["REVERSAL_FIRST","CONTINUATION_FIRST"])].copy()
     if x.empty or not (x.state=="HIGH_VOLUME_DECAY").any() or not (x.state=="LOW_VOLUME_DECAY_CONTROL").any(): return np.nan
     y=(x[outcome_col]=="REVERSAL_FIRST").to_numpy(dtype=np.int8); lab=x.state.to_numpy(); strata=x.stratum.to_numpy(); obs=y[lab=="HIGH_VOLUME_DECAY"].mean()-y[lab=="LOW_VOLUME_DECAY_CONTROL"].mean(); rng=np.random.default_rng(seed); hit=0
-    groups=[]
+    groups=[]; fixed_high=0; fixed_low=0
     for _,g in x.groupby("stratum",sort=True):
-        yy=(g[outcome_col]=="REVERSAL_FIRST").to_numpy(dtype=np.int8); k=int((g.state=="HIGH_VOLUME_DECAY").sum()); groups.append((yy,k))
+        yy=(g[outcome_col]=="REVERSAL_FIRST").to_numpy(dtype=np.int8); k=int((g.state=="HIGH_VOLUME_DECAY").sum());
+        if k==len(yy): fixed_high+=int(yy.sum())
+        elif k==0: fixed_low+=int(yy.sum())
+        else: groups.append((yy,k))
     ne=int((lab=="HIGH_VOLUME_DECAY").sum()); nl=len(lab)-ne
     for start in range(0,n,256):
-        q=min(256,n-start); high=np.zeros(q,dtype=np.int64); low=np.zeros(q,dtype=np.int64)
+        q=min(256,n-start); high=np.full(q,fixed_high,dtype=np.int64); low=np.full(q,fixed_low,dtype=np.int64)
         for yy,k in groups:
             if k==0 or k==len(yy): continue
             chosen=np.argpartition(rng.random((q,len(yy))),k-1,axis=1)[:,:k]; hw=yy[chosen].sum(axis=1); high+=hw; low+=yy.sum()-hw
