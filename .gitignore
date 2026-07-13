@@ -5,3 +5,7 @@ research/vwap_shock/outputs/*.log
 __pycache__/
 *.pyc
 .pytest_cache/
+research/impact_decay_reversal/outputs/*.parquet
+research/impact_decay_reversal/outputs/*_ledger.csv
+research/impact_decay_reversal/outputs/*.json
+research/impact_decay_reversal/outputs/*.log
