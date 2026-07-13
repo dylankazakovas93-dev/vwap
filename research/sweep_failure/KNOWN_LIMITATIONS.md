@@ -44,3 +44,22 @@
     60 valid prior sessions exist) have no volume stratum and are
     excluded from volume-stratified tables only (retained everywhere
     else).
+12. The primary `FAILED_BREACH` vs. `SUCCESSFUL_BREACH_CONTROL`
+    comparison is confounded by each class's own defining anchor: failed
+    breaches anchor at a close-inside bar, successful-breach controls
+    anchor at a close-outside bar, while both are scored against
+    symmetric barriers fixed at the causal level. The uniformly large,
+    highly significant effect found in nearly every primary cell
+    (`DECISIONS.md` #9) is very likely dominated by this anchor-side
+    confound rather than genuine new predictive information about
+    post-failure price behavior — see `SWEEP_FAILURE_REPORT.md` for the
+    full discussion and corroborating evidence (touch controls with an
+    inside close show a similarly elevated rotation rate despite never
+    breaching).
+13. `DELAYED_FAILURE_CONTROL` and `NEITHER_RESOLVED_WITHIN_10MIN` are
+    extremely rare (4 and 3 events respectively, pooled across both
+    instruments) because they require all of `B, B+1, B+2` to close
+    exactly tick-equal to the causal level — a narrow edge case that
+    real tick-quantized OHLCV rarely produces. Findings involving these
+    two classes should be read as anecdotal, not statistically
+    supported.
