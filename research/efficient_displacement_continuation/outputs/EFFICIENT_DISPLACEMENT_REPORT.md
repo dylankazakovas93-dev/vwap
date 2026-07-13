@@ -1,6 +1,6 @@
 # Efficient displacement continuation — frozen 2018–2022 development study
 
-This report is descriptive and contains no trading simulation.
+This report is descriptive and contains no trading simulation. Adjacent-horizon comparisons are in `adjacent_horizon_table.csv`; annual stability is in `year_stability_table.csv`; cross-market confirmation is in `cross_market_confirmation_table.csv`.
 
 ## Answers
 

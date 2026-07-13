@@ -1,5 +1,4 @@
-instrument,session,direction,year,continuation_rate,continuation_rate,median_signed_close,median_signed_close,n,n,efficient_minus_inefficient_n,efficient_minus_inefficient_continuation_rate,efficient_minus_inefficient_median_signed_close
-,,,,EFFICIENT_DISPLACEMENT,INEFFICIENT_DISPLACEMENT_CONTROL,EFFICIENT_DISPLACEMENT,INEFFICIENT_DISPLACEMENT_CONTROL,EFFICIENT_DISPLACEMENT,INEFFICIENT_DISPLACEMENT_CONTROL,,,
+instrument,session,direction,year,continuation_rate_EFFICIENT_DISPLACEMENT,continuation_rate_INEFFICIENT_DISPLACEMENT_CONTROL,median_signed_close_EFFICIENT_DISPLACEMENT,median_signed_close_INEFFICIENT_DISPLACEMENT_CONTROL,n_EFFICIENT_DISPLACEMENT,n_INEFFICIENT_DISPLACEMENT_CONTROL,efficient_minus_inefficient_n,efficient_minus_inefficient_continuation_rate,efficient_minus_inefficient_median_signed_close
 ES,ASIA,-1,2018,0.44244604316546765,0.3333333333333333,0.0,1.25,278.0,6.0,272.0,0.10911270983213434,-1.25
 ES,ASIA,-1,2019,0.3544973544973545,0.2857142857142857,-0.25,-0.125,378.0,14.0,364.0,0.06878306878306878,-0.125
 ES,ASIA,-1,2020,0.4607329842931937,0.43478260869565216,-0.5,-0.75,382.0,23.0,359.0,0.025950375597541542,0.25
