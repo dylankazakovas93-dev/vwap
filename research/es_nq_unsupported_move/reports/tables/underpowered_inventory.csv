@@ -1,0 +1,2 @@
+leg,leader_instrument,leader_direction,n_extreme_raw,n_moderate_raw,n_resolved_extreme,n_resolved_moderate,n_ambiguous,n_neither,n_incomplete,n_matched_strata,closure_rate_extreme,closure_rate_moderate,effect_pp,raw_p_value,n_perms,seed,q_value,max_year_sign_agreement,sample_ok,classification
+NEW_YORK,ES,UP,37,1551,28,1414,0,85,61,7,0.4642857142857143,0.5473833097595474,-8.309759547383312,0.44855514448555145,10000,20260713,0.897110288971103,3,False,UNDERPOWERED
