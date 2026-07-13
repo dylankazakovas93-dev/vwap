@@ -1,0 +1,296 @@
+[
+  {
+    "n_treat_all": 311,
+    "n_control_all": 770,
+    "n_treat_matched": 283,
+    "n_control_matched": 170,
+    "pooled_diff_h60": 0.2039284971939306,
+    "pooled_diff_h30": 0.2039284971939306,
+    "pooled_diff_h120": 0.20273405136702569,
+    "year_effects": {
+      "2018": {
+        "diff": 0.17857142857142855,
+        "n_treat": 56,
+        "n_control": 36
+      },
+      "2020": {
+        "diff": 0.2353488372093023,
+        "n_treat": 43,
+        "n_control": 25
+      },
+      "2022": {
+        "diff": 0.21875,
+        "n_treat": 52,
+        "n_control": 32
+      },
+      "2024": {
+        "diff": 0.12727272727272726,
+        "n_treat": 55,
+        "n_control": 40
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.12727272727272726,
+    "max_year_share": 0.29549292115859205,
+    "permutation": {
+      "n_treat": 307,
+      "n_control": 750,
+      "observed_diff": 0.2039284971939306,
+      "p_value": 0.00019998000199980003,
+      "n_strata": 52
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_1_TICK",
+    "B": 3,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.2,
+    "E": 6.0,
+    "bh_q": 0.004399560043995601
+  },
+  {
+    "n_treat_all": 317,
+    "n_control_all": 770,
+    "n_treat_matched": 289,
+    "n_control_matched": 218,
+    "pooled_diff_h60": 0.18539093997015965,
+    "pooled_diff_h30": 0.1847144930078293,
+    "pooled_diff_h120": 0.18557993730407524,
+    "year_effects": {
+      "2018": {
+        "diff": 0.17857142857142855,
+        "n_treat": 56,
+        "n_control": 36
+      },
+      "2020": {
+        "diff": 0.23984674329501915,
+        "n_treat": 45,
+        "n_control": 29
+      },
+      "2022": {
+        "diff": 0.14747474747474748,
+        "n_treat": 55,
+        "n_control": 45
+      },
+      "2024": {
+        "diff": 0.10714285714285718,
+        "n_treat": 56,
+        "n_control": 42
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.10714285714285718,
+    "max_year_share": 0.3092206366630077,
+    "permutation": {
+      "n_treat": 313,
+      "n_control": 750,
+      "observed_diff": 0.18539093997015965,
+      "p_value": 0.0006999300069993001,
+      "n_strata": 57
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_1_TICK",
+    "B": 3,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.2,
+    "E": null,
+    "bh_q": 0.00923907609239076
+  },
+  {
+    "n_treat_all": 326,
+    "n_control_all": 770,
+    "n_treat_matched": 300,
+    "n_control_matched": 164,
+    "pooled_diff_h60": 0.18707317073170732,
+    "pooled_diff_h30": 0.18707317073170732,
+    "pooled_diff_h120": 0.18584393485130862,
+    "year_effects": {
+      "2018": {
+        "diff": 0.1981566820276498,
+        "n_treat": 62,
+        "n_control": 42
+      },
+      "2020": {
+        "diff": 0.2747252747252747,
+        "n_treat": 49,
+        "n_control": 26
+      },
+      "2022": {
+        "diff": 0.1962864721485411,
+        "n_treat": 52,
+        "n_control": 29
+      },
+      "2024": {
+        "diff": 0.17543859649122806,
+        "n_treat": 57,
+        "n_control": 38
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.17543859649122806,
+    "max_year_share": 0.2929341238363032,
+    "permutation": {
+      "n_treat": 322,
+      "n_control": 750,
+      "observed_diff": 0.18707317073170732,
+      "p_value": 9.999000099990002e-05,
+      "n_strata": 44
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_1_TICK",
+    "B": 5,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.2,
+    "E": 4.0,
+    "bh_q": 0.004399560043995601
+  },
+  {
+    "n_treat_all": 345,
+    "n_control_all": 770,
+    "n_treat_matched": 316,
+    "n_control_matched": 187,
+    "pooled_diff_h60": 0.17894131185270423,
+    "pooled_diff_h30": 0.17894131185270423,
+    "pooled_diff_h120": 0.1778032692859191,
+    "year_effects": {
+      "2018": {
+        "diff": 0.15763888888888888,
+        "n_treat": 64,
+        "n_control": 45
+      },
+      "2020": {
+        "diff": 0.2802197802197802,
+        "n_treat": 52,
+        "n_control": 28
+      },
+      "2022": {
+        "diff": 0.20511363636363636,
+        "n_treat": 55,
+        "n_control": 32
+      },
+      "2024": {
+        "diff": 0.12857142857142856,
+        "n_treat": 60,
+        "n_control": 42
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.12857142857142856,
+    "max_year_share": 0.33377949374049826,
+    "permutation": {
+      "n_treat": 341,
+      "n_control": 750,
+      "observed_diff": 0.17894131185270423,
+      "p_value": 0.00019998000199980003,
+      "n_strata": 54
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_1_TICK",
+    "B": 5,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.2,
+    "E": 6.0,
+    "bh_q": 0.004399560043995601
+  },
+  {
+    "n_treat_all": 352,
+    "n_control_all": 770,
+    "n_treat_matched": 323,
+    "n_control_matched": 240,
+    "pooled_diff_h60": 0.1737745098039216,
+    "pooled_diff_h30": 0.17302485847895646,
+    "pooled_diff_h120": 0.17416590143862873,
+    "year_effects": {
+      "2018": {
+        "diff": 0.15763888888888888,
+        "n_treat": 64,
+        "n_control": 45
+      },
+      "2020": {
+        "diff": 0.28571428571428575,
+        "n_treat": 55,
+        "n_control": 35
+      },
+      "2022": {
+        "diff": 0.13524904214559386,
+        "n_treat": 58,
+        "n_control": 45
+      },
+      "2024": {
+        "diff": 0.11065573770491804,
+        "n_treat": 61,
+        "n_control": 44
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.11065573770491804,
+    "max_year_share": 0.3889903931160489,
+    "permutation": {
+      "n_treat": 348,
+      "n_control": 750,
+      "observed_diff": 0.1737745098039216,
+      "p_value": 0.00039996000399960006,
+      "n_strata": 60
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_1_TICK",
+    "B": 5,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.2,
+    "E": null,
+    "bh_q": 0.006599340065993401
+  },
+  {
+    "n_treat_all": 311,
+    "n_control_all": 770,
+    "n_treat_matched": 288,
+    "n_control_matched": 284,
+    "pooled_diff_h60": 0.08196400625978095,
+    "pooled_diff_h30": 0.08180110715697908,
+    "pooled_diff_h120": 0.08196400625978095,
+    "year_effects": {
+      "2018": {
+        "diff": 0.22017045454545453,
+        "n_treat": 64,
+        "n_control": 44
+      },
+      "2020": {
+        "diff": 0.10507246376811591,
+        "n_treat": 46,
+        "n_control": 36
+      },
+      "2022": {
+        "diff": 0.053333333333333344,
+        "n_treat": 50,
+        "n_control": 60
+      },
+      "2024": {
+        "diff": 0.16566958122411413,
+        "n_treat": 53,
+        "n_control": 41
+      }
+    },
+    "positive_years": 4,
+    "worst_year_effect": 0.053333333333333344,
+    "max_year_share": 0.463953276145282,
+    "permutation": {
+      "n_treat": 305,
+      "n_control": 750,
+      "observed_diff": 0.08196400625978095,
+      "p_value": 0.006999300069993001,
+      "n_strata": 59
+    },
+    "mapping_id": "M2_LONDON_TO_NY",
+    "side": "short",
+    "A": "A_GE_5PCT_VA",
+    "B": 5,
+    "C": "R1_ONE_CLOSE",
+    "D": 0.1,
+    "E": null,
+    "bh_q": 0.065993400659934
+  }
+]
